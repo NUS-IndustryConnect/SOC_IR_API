@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace SOC_IR.Model
 {
     public class IndustryPost
     {
+        [Key]
         private string industryPostID { get; set; }
         private string companyID { get; set; }
         private string companyName { get; set; }

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "AutoMapper/10.1.0": {
+      "AutoMapper/10.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -27,6 +27,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "EntityFramework/6.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -153,6 +164,18 @@
         },
         "runtime": {
           "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Relational.dll": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/5.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "5.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/_._": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/5.0.0": {
@@ -285,13 +308,35 @@
           "lib/netstandard2.0/Oracle.EntityFrameworkCore.dll": {}
         }
       },
-      "Oracle.ManagedDataAccess.Core/2.19.80": {
+      "Oracle.ManagedDataAccess/19.7.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Oracle.ManagedDataAccess.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Oracle.ManagedDataAccess.dll": {}
+        }
+      },
+      "Oracle.ManagedDataAccess.Core/2.19.100": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Oracle.ManagedDataAccess.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/Oracle.ManagedDataAccess.dll": {}
+        }
+      },
+      "Oracle.ManagedDataAccess.EntityFramework/19.7.0": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "[6.0.0, 7.0.0)",
+          "Oracle.ManagedDataAccess": "[19.7.0, 20.0.0)"
+        },
+        "compile": {
+          "lib/net45/Oracle.ManagedDataAccess.EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Oracle.ManagedDataAccess.EntityFramework.dll": {}
         }
       },
       "System.Collections.Immutable/5.0.0": {
@@ -333,14 +378,14 @@
     }
   },
   "libraries": {
-    "AutoMapper/10.1.0": {
-      "sha512": "qxn9+PpQJD53PAUHGXW3HTcq6Rxbv3Pyq/jTcc60ZYwOygyqUfHIY3HBChKbDwtTHdlwlQqJeJ1ckVcaoytxxw==",
+    "AutoMapper/10.1.1": {
+      "sha512": "uMgbqOdu9ZG5cIOty0C85hzzayBH2i9BthnS5FlMqKtMSHDv4ts81a2jS1VFaDBVhlBeIqJ/kQKjQY95BZde9w==",
       "type": "package",
-      "path": "automapper/10.1.0",
+      "path": "automapper/10.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "automapper.10.1.0.nupkg.sha512",
+        "automapper.10.1.1.nupkg.sha512",
         "automapper.nuspec",
         "icon.png",
         "lib/net461/AutoMapper.dll",
@@ -360,6 +405,36 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "EntityFramework/6.0.0": {
+      "sha512": "y6lX/VMghGBV6TvgQS4Q2WK6kAcOoyD+TQxObN9utd0JsMMdMxyqARxKbvgi7KEIbQ8osZ4ZvImaly7l3NDFDw==",
+      "type": "package",
+      "path": "entityframework/6.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/App.config.transform",
+        "Content/Web.config.transform",
+        "entityframework.6.0.0.nupkg.sha512",
+        "entityframework.nuspec",
+        "lib/net40/EntityFramework.SqlServer.dll",
+        "lib/net40/EntityFramework.SqlServer.xml",
+        "lib/net40/EntityFramework.dll",
+        "lib/net40/EntityFramework.xml",
+        "lib/net45/EntityFramework.SqlServer.dll",
+        "lib/net45/EntityFramework.SqlServer.xml",
+        "lib/net45/EntityFramework.dll",
+        "lib/net45/EntityFramework.xml",
+        "tools/EntityFramework.PowerShell.Utility.dll",
+        "tools/EntityFramework.PowerShell.dll",
+        "tools/EntityFramework.psd1",
+        "tools/EntityFramework.psm1",
+        "tools/about_EntityFramework.help.txt",
+        "tools/init.ps1",
+        "tools/install.ps1",
+        "tools/migrate.exe"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -565,6 +640,30 @@
         "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Relational.xml",
         "microsoft.entityframeworkcore.relational.5.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Tools/5.0.1": {
+      "sha512": "aWC8uiAHkuZzOOxQwqzUyqRMGCCcqjthIUsJVn9I601UkVhxmHwvB/oARO1xb0GBaCfJuCJglo2wkehBjegwRQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.tools/5.0.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netstandard2.1/_._",
+        "microsoft.entityframeworkcore.tools.5.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.tools.nuspec",
+        "tools/EntityFrameworkCore.PS2.psd1",
+        "tools/EntityFrameworkCore.PS2.psm1",
+        "tools/EntityFrameworkCore.psd1",
+        "tools/EntityFrameworkCore.psm1",
+        "tools/about_EntityFrameworkCore.help.txt",
+        "tools/init.ps1",
+        "tools/net461/any/ef.exe",
+        "tools/net461/win-x86/ef.exe",
+        "tools/netcoreapp2.0/any/ef.dll",
+        "tools/netcoreapp2.0/any/ef.runtimeconfig.json"
       ]
     },
     "Microsoft.Extensions.Caching.Abstractions/5.0.0": {
@@ -783,10 +882,34 @@
         "readme.txt"
       ]
     },
-    "Oracle.ManagedDataAccess.Core/2.19.80": {
-      "sha512": "8ux9wnTCjJhTCham9ghfii+35TFVgXcXnFNdhIsuAraB7NsKu3bVY8Se4OLgtjDNlNymBNBJH7pycCq1Ik7G0w==",
+    "Oracle.ManagedDataAccess/19.7.0": {
+      "sha512": "MIZVdvMT7i1eM1WXu2YpqHIuAOqmB0V2/UL8lk7TsC/0hQqiFF4rrwCl1HvcmHpXnqcbxzlBAvuELu1hCpQ61Q==",
       "type": "package",
-      "path": "oracle.manageddataaccess.core/2.19.80",
+      "path": "oracle.manageddataaccess/19.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "PerfCounters/register_odpm_perfmon_counters.ps1",
+        "PerfCounters/unregister_odpm_perfmon_counters.ps1",
+        "bin/x64/Oracle.ManagedDataAccessIOP.dll",
+        "bin/x86/Oracle.ManagedDataAccessIOP.dll",
+        "content/net40/App.config.install.xdt",
+        "content/net40/App.config.transform",
+        "content/net40/App.config.uninstall.xdt",
+        "content/net40/Web.config.install.xdt",
+        "content/net40/Web.config.transform",
+        "content/net40/Web.config.uninstall.xdt",
+        "info.txt",
+        "lib/net40/Oracle.ManagedDataAccess.dll",
+        "oracle.manageddataaccess.19.7.0.nupkg.sha512",
+        "oracle.manageddataaccess.nuspec",
+        "readme.txt"
+      ]
+    },
+    "Oracle.ManagedDataAccess.Core/2.19.100": {
+      "sha512": "ISGSsundxgtb+Wff68QOFjrWuOomaFOZucXtQUblF84ITqZRJY+VePXhcSbHWNnDWDeHX2reG1xjHwoh1o23gg==",
+      "type": "package",
+      "path": "oracle.manageddataaccess.core/2.19.100",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -794,8 +917,26 @@
         "PerfCounters/unregister_odpc_perfmon_counters.ps1",
         "info.txt",
         "lib/netstandard2.0/Oracle.ManagedDataAccess.dll",
-        "oracle.manageddataaccess.core.2.19.80.nupkg.sha512",
+        "oracle.manageddataaccess.core.2.19.100.nupkg.sha512",
         "oracle.manageddataaccess.core.nuspec",
+        "readme.txt"
+      ]
+    },
+    "Oracle.ManagedDataAccess.EntityFramework/19.7.0": {
+      "sha512": "vu6QazdlHjizQBpfd5g+N9rhmVXNTn6+3E0byqMbKPt8XuTpPdsndPPdJxtbW32DvPLLcbagwaQs9aTo9dbAbw==",
+      "type": "package",
+      "path": "oracle.manageddataaccess.entityframework/19.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/net45/App.config.install.xdt",
+        "content/net45/App.config.uninstall.xdt",
+        "content/net45/Web.config.install.xdt",
+        "content/net45/Web.config.uninstall.xdt",
+        "info.txt",
+        "lib/net45/Oracle.ManagedDataAccess.EntityFramework.dll",
+        "oracle.manageddataaccess.entityframework.19.7.0.nupkg.sha512",
+        "oracle.manageddataaccess.entityframework.nuspec",
         "readme.txt"
       ]
     },
@@ -1000,37 +1141,42 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "AutoMapper >= 10.1.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.0",
       "Microsoft.AspNet.Mvc >= 5.2.7",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.1",
       "Microsoft.EntityFrameworkCore.Relational >= 5.0.1",
-      "Oracle.EntityFrameworkCore >= 3.19.80"
+      "Microsoft.EntityFrameworkCore.Tools >= 5.0.1",
+      "Oracle.EntityFrameworkCore >= 3.19.80",
+      "Oracle.ManagedDataAccess.Core >= 2.19.100",
+      "Oracle.ManagedDataAccess.EntityFramework >= 19.7.0"
     ]
   },
   "packageFolders": {
-    "/Users/sruthi/.nuget/packages/": {}
+    "C:\\Users\\pandh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
+      "projectUniqueName": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
       "projectName": "SOC_IR",
-      "projectPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
-      "packagesPath": "/Users/sruthi/.nuget/packages/",
-      "outputPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/",
+      "projectPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
+      "packagesPath": "C:\\Users\\pandh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/sruthi/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pandh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -1042,8 +1188,11 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[10.1.1, )"
+          },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[8.1.0, )"
@@ -1062,9 +1211,23 @@
             "target": "Package",
             "version": "[5.0.1, )"
           },
+          "Microsoft.EntityFrameworkCore.Tools": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[5.0.1, )"
+          },
           "Oracle.EntityFrameworkCore": {
             "target": "Package",
             "version": "[3.19.80, )"
+          },
+          "Oracle.ManagedDataAccess.Core": {
+            "target": "Package",
+            "version": "[2.19.100, )"
+          },
+          "Oracle.ManagedDataAccess.EntityFramework": {
+            "target": "Package",
+            "version": "[19.7.0, )"
           }
         },
         "imports": [
@@ -1077,12 +1240,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.8, 3.1.8]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -1091,7 +1248,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1102,6 +1259,16 @@
       "warningLevel": 1,
       "message": "Detected package version outside of dependency constraint: Oracle.EntityFrameworkCore 3.19.80 requires Microsoft.EntityFrameworkCore.Relational (>= 3.1.6 && < 4.0.0) but version Microsoft.EntityFrameworkCore.Relational 5.0.1 was resolved.",
       "libraryId": "Microsoft.EntityFrameworkCore.Relational",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework 6.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
       ]
@@ -1142,6 +1309,26 @@
       "warningLevel": 1,
       "message": "Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.Web.Infrastructure",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Oracle.ManagedDataAccess 19.7.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Oracle.ManagedDataAccess",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Oracle.ManagedDataAccess.EntityFramework 19.7.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Oracle.ManagedDataAccess.EntityFramework",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
       ]
