@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
-namespace SOC_IR.Model
+namespace SOC_IR.Dtos.CompanyUser
 {
-    public class CompanyUser
+    public class CompanyUserDto
     {
-        [Key]
         public string companyUserID { get; set; }
         public string companyID { get; set; }
         public string email { get; set; }
         public string lastLoggedIn { get; set; }
         public List<string> companyUserPostIds { get; set; }
 
-        public CompanyUser(string companyUserID, string companyID, string email, string lastLoggedIn, List<string> companyUserPostIds)
+        public CompanyUserDto(string companyUserID, string companyID, string email, string lastLoggedIn, List<string> companyUserPostIds)
         {
             this.companyUserID = companyUserID;
             this.companyID = companyID;

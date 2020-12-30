@@ -19,6 +19,13 @@ namespace SOC_IR.Services.CompanyService
 
         async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.CreateCompany(CreateCompanyDto companyDto)
         {
+            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
+            if (_context.Companies.First(a => a.companyName == companyDto.companyName) != null)
+            {
+                response.Success = false;
+                response.Message = "This company already has an account";
+                return response;
+            }
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             char[] stringChars = new char[16];
             var random = new Random();
@@ -34,7 +41,6 @@ namespace SOC_IR.Services.CompanyService
             Company newCompany = new Company(finalString, companyDto.companyName, companyDto.companyTier, companyDto.companyDescription, postList);
             await _context.Companies.AddAsync(newCompany);
             await _context.SaveChangesAsync();
-            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
             List<Company> newCompanyList = await _context.Companies.ToListAsync();
             List<GetCompanyAdminDto> data = newCompanyList.Select(a => new GetCompanyAdminDto(a.companyID, a.companyName, a.companyTier, a.companyDescription, a.companyPostIdList)).ToList();
             response.Data = data;
