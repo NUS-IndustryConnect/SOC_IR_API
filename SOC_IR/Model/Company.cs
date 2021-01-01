@@ -23,5 +23,15 @@ namespace SOC_IR.Model
             this.companyDescription = companyDescription;
             this.companyPostIdList = companyPostIdList;
         }
+
+        public void addPost (string postID)
+        {
+            this.companyPostIdList.Add(postID);
+        }
+
+        public void deletePost(string postID)
+        {
+            this.companyPostIdList.Remove(postID);
+        }
     }
 }

@@ -20,13 +20,21 @@ namespace SOC_IR.Services.CompanyUserService
         {
 
             ServiceResponse<CompanyUserDto> response = new ServiceResponse<CompanyUserDto>();
-
-            if (_context.CompanyUsers.First(a => a.email == companyUserDto.email) != null)
+            Company company = await _context.Companies.FirstAsync(a => a.companyID == companyUserDto.companyID);
+            if (await _context.CompanyUsers.FirstAsync(a => a.email == companyUserDto.email) == null)
             {
                 response.Success = false;
                 response.Message = "This email already has an account";
                 return response;
             }
+
+            if (company == null)
+            {
+                response.Success = false;
+                response.Message = "The company entered does not exist";
+                return response;
+            }
+
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             char[] stringChars = new char[16];
             var random = new Random();
@@ -35,7 +43,7 @@ namespace SOC_IR.Services.CompanyUserService
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
-
+            
             string finalString = new String(stringChars);
             List<string> postList = new List<string>();
             String lastLoggedIn = new DateTime().ToString();
@@ -71,7 +79,7 @@ namespace SOC_IR.Services.CompanyUserService
         {
             ServiceResponse<CompanyUserDto> response = new ServiceResponse<CompanyUserDto>();
             CompanyUser user = await _context.CompanyUsers.FirstAsync(a => a.companyUserID == companyUserID);
-            CompanyUserDto userDto = new CompanyUserDto(user.companyUserID, user.companyID, user.email, user.lastLoggedIn, user.companyUserPostIds));
+            CompanyUserDto userDto = new CompanyUserDto(user.companyUserID, user.companyID, user.email, user.lastLoggedIn, user.companyUserPostIds);
             response.Data = userDto;
             return response;
         }

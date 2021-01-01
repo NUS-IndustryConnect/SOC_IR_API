@@ -23,5 +23,15 @@ namespace SOC_IR.Model
             this.lastLoggedIn = lastLoggedIn;
             this.companyUserPostIds = companyUserPostIds;
         }
+
+        public void addPost(string postID)
+        {
+            this.companyUserPostIds.Add(postID);
+        }
+
+        public void deletePost(string postID)
+        {
+            this.companyUserPostIds.Remove(postID);
+        }
     }
 }
