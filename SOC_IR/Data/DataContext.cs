@@ -8,6 +8,8 @@ namespace SOC_IR.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyUser> CompanyUsers { get; set; }
+        public DbSet<CompanyPost> CompanyPosts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

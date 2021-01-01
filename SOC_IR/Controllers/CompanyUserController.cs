@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SOC_IR.Dtos.CompanyUser;
+using SOC_IR.Services.CompanyUserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,39 +14,39 @@ namespace SOC_IR.Controllers
     {
         private readonly ICompanyUserService _companyUserService;
 
-        public CompanyController(ICompanyService companyService)
+        public CompanyUserController(ICompanyUserService companyService)
         {
             this._companyUserService = companyService;
         }
 
-        [HttpGet("admin")]
-        async public Task<IActionResult> getCompanyAdmin()
+        [HttpGet("users")]
+        async public Task<IActionResult> getAllCompanyUsers()
         {
-            return Ok(await _companyUserService.GetCompanyAdmin());
+            return Ok(await _companyUserService.GetAllCompanyUsers());
         }
 
-        [HttpGet("student")]
-        async public Task<IActionResult> getCompanyStudent()
+        [HttpGet("company/{companyID}")]
+        async public Task<IActionResult> getCompanyUsersFromCompany(string companyID)
         {
-            return Ok(await _companyUserService.GetCompanyStudent());
+            return Ok(await _companyUserService.GetCompanyUsersFromCompany(companyID));
+        }
+
+        [HttpGet("user/{companyUserID}")]
+        async public Task<IActionResult> createCompanyUser(string companyUserID)
+        {
+            return Ok(await _companyUserService.GetCompanyUserFromId(companyUserID));
         }
 
         [HttpPost("create")]
-        async public Task<IActionResult> createCompany(CreateCompanyDto companyDto)
+        async public Task<IActionResult> createCompanyUser(CreateCompanyUserDto companyUserDto)
         {
-            return Ok(await _companyUserService.CreateCompany(companyDto));
+            return Ok(await _companyUserService.CreateCompanyUser(companyUserDto));
         }
 
-        [HttpPost("update")]
-        async public Task<IActionResult> createCompany(UpdateCompanyDto companyDto)
+        [HttpDelete("{companyUserID}")]
+        async public Task<IActionResult> deleteCompany(string companyUserID)
         {
-            return Ok(await _companyUserService.UpdateCompany(companyDto));
-        }
-
-        [HttpDelete("create/{id}")]
-        async public Task<IActionResult> deleteCompany(string id)
-        {
-            return Ok(await _companyUserService.DeleteCompany(id));
+            return Ok(await _companyUserService.DeleteCompanyUser(companyUserID));
         }
     }
 }

@@ -49,8 +49,10 @@ namespace SOC_IR.Services.CompanyService
 
         async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.DeleteCompany(string id)
         {
-            Company removed = _context.Companies.First(a => a.companyID == id);
+            Company removed = await _context.Companies.FirstAsync(a => a.companyID == id);
+            List<CompanyUser> users = await _context.CompanyUsers.Where(a => a.companyID == id).ToListAsync();
             _context.Companies.Remove(removed);
+            _context.CompanyUsers.RemoveRange(users);
             await _context.SaveChangesAsync();
             ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
             List<Company> newCompanyList = await _context.Companies.ToListAsync();
@@ -82,6 +84,16 @@ namespace SOC_IR.Services.CompanyService
             Company update = await _context.Companies.FirstAsync(a => a.companyID == updatedCompanyDto.companyID);
             Company updated = new Company(updatedCompanyDto.companyID, updatedCompanyDto.companyName, updatedCompanyDto.companyTier,
                 updatedCompanyDto.companyDescription, update.companyPostIdList);
+
+
+            if(update.companyName != updated.companyName)
+            {
+                List<CompanyPost> posts = await _context.CompanyPosts.Where(a => a.companyID == updatedCompanyDto.companyID).ToListAsync();
+                posts.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
+                _context.CompanyPosts.UpdateRange(posts);
+            }
+
+
             _context.Companies.Update(updated);
             await _context.SaveChangesAsync();
             ServiceResponse<GetCompanyAdminDto> response= new ServiceResponse<GetCompanyAdminDto>();
