@@ -26,16 +26,8 @@ namespace SOC_IR.Services.CompanyService
                 response.Message = "This company already has an account";
                 return response;
             }
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            char[] stringChars = new char[16];
-            var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            string finalString = new String(stringChars);
+            string finalString = new IDGenerator.IDGenerator().generate();
             List<string> postList = new List<string>();
 
             Company newCompany = new Company(finalString, companyDto.companyName, companyDto.companyTier, companyDto.companyDescription, postList);

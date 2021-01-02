@@ -1,6 +1,7 @@
 ﻿using SOC_IR.Data;
 using SOC_IR.Dtos.CompanyPost;
 using SOC_IR.Model;
+using SOC_IR.Services.IDGenerator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -46,16 +47,9 @@ namespace SOC_IR.Services.CompanyPostService
                 response.Message = "The poster of the post does not exist";
                 return response;
             }
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            char[] stringChars = new char[16];
-            var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            string finalString = new String(stringChars);
+            
+            string finalString = new IDGenerator.IDGenerator().generate();
             string lastUpdated = new DateTime().ToString();
             CompanyPost newPost = new CompanyPost(finalString, companyPostDto.companyID, companyOfPost.companyName, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, new List<string>(), lastUpdated, companyPostDto.approvedBy, companyPostDto.validTill, true);
             companyOfPost.addPost(finalString);

@@ -35,16 +35,7 @@ namespace SOC_IR.Services.CompanyUserService
                 return response;
             }
 
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            char[] stringChars = new char[16];
-            var random = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-            
-            string finalString = new String(stringChars);
+            string finalString = new IDGenerator.IDGenerator().generate();
             List<string> postList = new List<string>();
             String lastLoggedIn = new DateTime().ToString();
             CompanyUser newUser = new CompanyUser(finalString, companyUserDto.companyID, companyUserDto.email, lastLoggedIn, postList);
