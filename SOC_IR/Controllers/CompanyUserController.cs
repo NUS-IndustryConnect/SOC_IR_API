@@ -32,7 +32,7 @@ namespace SOC_IR.Controllers
         }
 
         [HttpGet("user/{companyUserID}")]
-        async public Task<IActionResult> createCompanyUser(string companyUserID)
+        async public Task<IActionResult> getCompanyUserFromId(string companyUserID)
         {
             return Ok(await _companyUserService.GetCompanyUserFromId(companyUserID));
         }
@@ -44,7 +44,7 @@ namespace SOC_IR.Controllers
         }
 
         [HttpDelete("{companyUserID}")]
-        async public Task<IActionResult> deleteCompany(string companyUserID)
+        async public Task<IActionResult> deleteCompanyUser(string companyUserID)
         {
             return Ok(await _companyUserService.DeleteCompanyUser(companyUserID));
         }

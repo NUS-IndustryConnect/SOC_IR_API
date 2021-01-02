@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SOC_IR.Controllers
 {
-    public class IndustryPostRequestController
+    public class CompanyPostRequestController
     {
     }
 }

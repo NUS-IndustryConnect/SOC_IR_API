@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SOC_IR.Model
 {
-    public class IndustryPostRequest
+    public class CompanyPostRequest
     {
         [Key]
         private string industryPostRequestID { get; set; }
