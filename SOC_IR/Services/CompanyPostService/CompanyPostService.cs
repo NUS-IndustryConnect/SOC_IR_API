@@ -73,6 +73,8 @@ namespace SOC_IR.Services.CompanyPostService
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
             List<CompanyPost> deletedPosts = await _context.CompanyPosts.Where(a => postIds.Contains(a.companyPostID)).ToListAsync();
+            await _context.Companies.ForEachAsync(a => a.deletePosts(postIds));
+            await _context.CompanyUsers.ForEachAsync(a => a.deletePosts(postIds));
             _context.CompanyPosts.RemoveRange(deletedPosts);
             await _context.SaveChangesAsync();
             List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();

@@ -24,7 +24,7 @@ namespace SOC_IR.Model
             this.companyPostIdList = companyPostIdList;
         }
 
-        public void addPost (string postID)
+        public void addPost(string postID)
         {
             this.companyPostIdList.Add(postID);
         }
@@ -32,6 +32,18 @@ namespace SOC_IR.Model
         public void deletePost(string postID)
         {
             this.companyPostIdList.Remove(postID);
+        }
+
+        public void deletePosts(List<string> postIDs)
+        {
+            for (int i = 0; i < postIDs.Count(); i++)
+            {
+                string postID = postIDs[i];
+                if (this.companyPostIdList.Contains(postID))
+                {
+                    companyPostIdList.Remove(postID);
+                }
+            }
         }
     }
 }

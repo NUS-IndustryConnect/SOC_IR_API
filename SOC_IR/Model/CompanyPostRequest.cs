@@ -9,7 +9,7 @@ namespace SOC_IR.Model
     public class CompanyPostRequest
     {
         [Key]
-        private string industryPostRequestID { get; set; }
+        private string companyPostRequestID { get; set; }
         private string companyID { get; set; }
         private string postTitle { get; set; }
         private string postSubTitle { get; set; }

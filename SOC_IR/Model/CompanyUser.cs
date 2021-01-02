@@ -33,5 +33,17 @@ namespace SOC_IR.Model
         {
             this.companyUserPostIds.Remove(postID);
         }
+
+        public void deletePosts(List<string> postIDs)
+        {
+            for (int i = 0; i < postIDs.Count(); i++)
+            {
+                string postID = postIDs[i];
+                if (this.companyUserPostIds.Contains(postID))
+                {
+                    companyUserPostIds.Remove(postID);
+                }
+            }
+        }
     }
 }
