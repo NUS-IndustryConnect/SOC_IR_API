@@ -43,10 +43,10 @@ namespace SOC_IR.Controllers
             return Ok(await _companyService.UpdateCompany(companyDto));
         }
 
-        [HttpDelete("create/{id}")]
-        async public Task<IActionResult> deleteCompany(string id)
+        [HttpDelete("{companyID}")]
+        async public Task<IActionResult> deleteCompany(string companyID)
         {
-            return Ok(await _companyService.DeleteCompany(id));
+            return Ok(await _companyService.DeleteCompany(companyID));
         }
     }
 }

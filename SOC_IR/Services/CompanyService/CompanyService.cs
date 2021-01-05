@@ -19,22 +19,21 @@ namespace SOC_IR.Services.CompanyService
 
         async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.CreateCompany(CreateCompanyDto companyDto)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            char[] stringChars = new char[16];
-            var random = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
+            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
+            if (_context.Companies.First(a => a.companyName == companyDto.companyName) != null)
             {
-                stringChars[i] = chars[random.Next(chars.Length)];
+                response.Success = false;
+                response.Message = "This company already has an account";
+                return response;
             }
 
-            string finalString = new String(stringChars);
+            string finalString = new IDGenerator.IDGenerator().generate();
             List<string> postList = new List<string>();
+            List<string> postRequestList = new List<string>();
 
-            Company newCompany = new Company(finalString, companyDto.companyName, companyDto.companyTier, companyDto.companyDescription, postList);
+            Company newCompany = new Company(finalString, companyDto.companyName, companyDto.companyTier, companyDto.companyDescription, postList, postRequestList);
             await _context.Companies.AddAsync(newCompany);
             await _context.SaveChangesAsync();
-            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
             List<Company> newCompanyList = await _context.Companies.ToListAsync();
             List<GetCompanyAdminDto> data = newCompanyList.Select(a => new GetCompanyAdminDto(a.companyID, a.companyName, a.companyTier, a.companyDescription, a.companyPostIdList)).ToList();
             response.Data = data;
@@ -43,8 +42,10 @@ namespace SOC_IR.Services.CompanyService
 
         async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.DeleteCompany(string id)
         {
-            Company removed = _context.Companies.First(a => a.companyID == id);
+            Company removed = await _context.Companies.FirstAsync(a => a.companyID == id);
+            List<CompanyUser> users = await _context.CompanyUsers.Where(a => a.companyID == id).ToListAsync();
             _context.Companies.Remove(removed);
+            _context.CompanyUsers.RemoveRange(users);
             await _context.SaveChangesAsync();
             ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
             List<Company> newCompanyList = await _context.Companies.ToListAsync();
@@ -75,7 +76,17 @@ namespace SOC_IR.Services.CompanyService
         {
             Company update = await _context.Companies.FirstAsync(a => a.companyID == updatedCompanyDto.companyID);
             Company updated = new Company(updatedCompanyDto.companyID, updatedCompanyDto.companyName, updatedCompanyDto.companyTier,
-                updatedCompanyDto.companyDescription, update.companyPostIdList);
+                updatedCompanyDto.companyDescription, update.companyPostIdList, update.companyPostRequestIdList);
+
+
+            if(update.companyName != updated.companyName)
+            {
+                List<CompanyPost> posts = await _context.CompanyPosts.Where(a => a.companyID == updatedCompanyDto.companyID).ToListAsync();
+                posts.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
+                _context.CompanyPosts.UpdateRange(posts);
+            }
+
+
             _context.Companies.Update(updated);
             await _context.SaveChangesAsync();
             ServiceResponse<GetCompanyAdminDto> response= new ServiceResponse<GetCompanyAdminDto>();

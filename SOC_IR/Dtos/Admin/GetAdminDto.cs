@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
-namespace SOC_IR.Model
+namespace SOC_IR.Services.AdminService
 {
-    public class Admin
+    public class GetAdminDto
     {
-        [Key]
         public string adminID { get; set; }
         public string name { get; set; }
         public string email { get; set; }
 
-        public Admin(string adminID, string name, string email)
+        public GetAdminDto(string adminID, string name, string email)
         {
             this.adminID = adminID;
             this.name = name;
