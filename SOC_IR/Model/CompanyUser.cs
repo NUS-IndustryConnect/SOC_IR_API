@@ -14,19 +14,32 @@ namespace SOC_IR.Model
         public string email { get; set; }
         public string lastLoggedIn { get; set; }
         public List<string> companyUserPostIds { get; set; }
+        public List<string> companyUserPostRequestIds { get; set; }
 
-        public CompanyUser(string companyUserID, string companyID, string email, string lastLoggedIn, List<string> companyUserPostIds)
+        public CompanyUser(string companyUserID, string companyID, string email, string lastLoggedIn, List<string> companyUserPostIds, List<string> companyUserPostRequestIds)
         {
             this.companyUserID = companyUserID;
             this.companyID = companyID;
             this.email = email;
             this.lastLoggedIn = lastLoggedIn;
             this.companyUserPostIds = companyUserPostIds;
+            this.companyUserPostRequestIds = companyUserPostRequestIds;
         }
 
         public void addPost(string postID)
         {
             this.companyUserPostIds.Add(postID);
+        }
+
+        public void addPostRequest(string postID)
+        {
+            this.companyUserPostRequestIds.Add(postID);
+        }
+
+        public void approvePostRequest(string postID)
+        {
+            this.companyUserPostIds.Remove(postID);
+            this.companyUserPostRequestIds.Add(postID);
         }
 
         public void deletePost(string postID)

@@ -11,6 +11,7 @@ namespace SOC_IR.Data
         public DbSet<CompanyUser> CompanyUsers { get; set; }
         public DbSet<CompanyPost> CompanyPosts { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<CompanyPostRequest> CompanyPostRequests { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

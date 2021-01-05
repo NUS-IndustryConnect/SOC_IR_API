@@ -37,8 +37,9 @@ namespace SOC_IR.Services.CompanyUserService
 
             string finalString = new IDGenerator.IDGenerator().generate();
             List<string> postList = new List<string>();
+            List<string> postRequestList = new List<string>();
             String lastLoggedIn = new DateTime().ToString();
-            CompanyUser newUser = new CompanyUser(finalString, companyUserDto.companyID, companyUserDto.email, lastLoggedIn, postList);
+            CompanyUser newUser = new CompanyUser(finalString, companyUserDto.companyID, companyUserDto.email, lastLoggedIn, postList, postRequestList);
             await _context.CompanyUsers.AddAsync(newUser);
             await _context.SaveChangesAsync();
             CompanyUserDto newUserDto = new CompanyUserDto(newUser.companyUserID, newUser.companyID, newUser.email, newUser.lastLoggedIn, newUser.companyUserPostIds);

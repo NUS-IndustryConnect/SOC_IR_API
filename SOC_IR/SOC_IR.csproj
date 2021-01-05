@@ -22,9 +22,5 @@
     <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="19.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\CompanyPostRequest\" />
-  </ItemGroup>
-
 
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using SOC_IR.Dtos.CompanyPostRequest;
 
 namespace SOC_IR.Model
 {
@@ -37,6 +38,22 @@ namespace SOC_IR.Model
             this.approvedBy = approvedBy;
             this.validTill = validTill;
             this.isActive = isActive;
+        }
+
+        public CompanyPost(ApprovalDto data)
+        {
+            this.companyPostID = data.request.companyPostRequestID;
+            this.companyID = data.request.companyID;
+            this.companyName = data.companyName;
+            this.postTitle = data.request.postTitle;
+            this.postSubTitle = data.request.postSubTitle;
+            this.postDescription = data.request.postDescription;
+            this.videoUrl = data.request.videoUrl;
+            this.links = data.request.links;
+            this.lastUpdated = new DateTime().ToString();
+            this.approvedBy = data.approvedBy;
+            this.validTill = data.request.validTill;
+            this.isActive = true;
         }
 
         public void archivePost()

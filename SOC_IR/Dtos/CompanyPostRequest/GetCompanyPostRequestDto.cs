@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
-namespace SOC_IR.Model
+namespace SOC_IR.Dtos.CompanyPostRequest
 {
-    public class CompanyPostRequest
+    public class GetCompanyPostRequestDto
     {
-    
-
-        [Key]
         public string companyPostRequestID { get; set; }
         public string companyID { get; set; }
         public string postTitle { get; set; }
@@ -22,7 +18,7 @@ namespace SOC_IR.Model
         public string status { get; set; }
         public string feedback { get; set; }
 
-        public CompanyPostRequest(string companyPostRequestID, string companyID, string postTitle, string postSubTitle, string postDescription,
+        public GetCompanyPostRequestDto(string companyPostRequestID, string companyID, string postTitle, string postSubTitle, string postDescription, 
             string videoUrl, List<string> links, string validTill, string status, string feedback)
         {
             this.companyPostRequestID = companyPostRequestID;
@@ -35,6 +31,20 @@ namespace SOC_IR.Model
             this.validTill = validTill;
             this.status = status;
             this.feedback = feedback;
+        }
+
+        public GetCompanyPostRequestDto(SOC_IR.Model.CompanyPostRequest req)
+        {
+            this.companyPostRequestID = req.companyPostRequestID;
+            this.companyID = req.companyID;
+            this.postTitle = req.postTitle;
+            this.postSubTitle = req.postSubTitle;
+            this.postDescription = req.postDescription;
+            this.videoUrl = req.videoUrl;
+            this.links = req.links;
+            this.validTill = req.validTill;
+            this.status = req.status;
+            this.feedback = req.feedback;
         }
     }
 }

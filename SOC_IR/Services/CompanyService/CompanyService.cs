@@ -29,8 +29,9 @@ namespace SOC_IR.Services.CompanyService
 
             string finalString = new IDGenerator.IDGenerator().generate();
             List<string> postList = new List<string>();
+            List<string> postRequestList = new List<string>();
 
-            Company newCompany = new Company(finalString, companyDto.companyName, companyDto.companyTier, companyDto.companyDescription, postList);
+            Company newCompany = new Company(finalString, companyDto.companyName, companyDto.companyTier, companyDto.companyDescription, postList, postRequestList);
             await _context.Companies.AddAsync(newCompany);
             await _context.SaveChangesAsync();
             List<Company> newCompanyList = await _context.Companies.ToListAsync();
@@ -75,7 +76,7 @@ namespace SOC_IR.Services.CompanyService
         {
             Company update = await _context.Companies.FirstAsync(a => a.companyID == updatedCompanyDto.companyID);
             Company updated = new Company(updatedCompanyDto.companyID, updatedCompanyDto.companyName, updatedCompanyDto.companyTier,
-                updatedCompanyDto.companyDescription, update.companyPostIdList);
+                updatedCompanyDto.companyDescription, update.companyPostIdList, update.companyPostRequestIdList);
 
 
             if(update.companyName != updated.companyName)
