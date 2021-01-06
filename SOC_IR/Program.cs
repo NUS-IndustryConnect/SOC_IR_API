@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using Oracle.ManagedDataAccess.Client;
+
 namespace SOC_IR
 {
     public class Program
