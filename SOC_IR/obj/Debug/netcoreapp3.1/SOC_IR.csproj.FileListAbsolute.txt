@@ -7,7 +7,6 @@
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/SOC_IR.pdb
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/AutoMapper.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Humanizer.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.Web.Mvc.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.Web.Razor.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.Web.Helpers.dll
@@ -29,7 +28,6 @@
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.Web.Infrastructure.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.Collections.Immutable.dll
-/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.ComponentModel.Annotations.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.csprojAssemblyReference.cache
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.AssemblyInfoInputs.cache
@@ -46,3 +44,7 @@
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.genruntimeconfig.cache
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Oracle.EntityFrameworkCore.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Oracle.ManagedDataAccess.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.Bcl.HashCode.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll

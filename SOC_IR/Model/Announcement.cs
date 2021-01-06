@@ -17,5 +17,6 @@ namespace SOC_IR.Model
         public Boolean isActive { get; set; }
         public string validTill { get; set; }
         public string announcedBy { get; set; }
+        public string lastUpdated { get; set; }
     }
 }
