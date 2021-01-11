@@ -1,10 +1,10 @@
-﻿using SOC_IR.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SOC_IR.Data;
 using SOC_IR.Dtos.CompanyPost;
 using SOC_IR.Model;
 using SOC_IR.Services.IDGenerator;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 

@@ -8,8 +8,8 @@ namespace SOC_IR.Dtos.Announcement
         private string subtitle { get; set; }
         private string description { get; set; }
         private Boolean isImportant { get; set; }
-        private Boolean isActive { get; set; }
         private string validTill { get; set; }
         private string announcedBy { get; set; }
+        private string lastUpdated { get; set; }
     }
 }

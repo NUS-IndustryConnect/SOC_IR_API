@@ -25,19 +25,25 @@ namespace SOC_IR.Controllers
             return Ok(await _announcementService.GetAnnouncementById(id));
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("admin")]
         public async Task<IActionResult> GetAllAnnouncements()
         {
             return Ok(await _announcementService.GetAllAnnouncements());
         }
 
-        [HttpPost]
+        [HttpGet("student")]
+        public async Task<IActionResult> GetAllUnarchivedAnnouncements()
+        {
+            return Ok(await _announcementService.GetAllUnarchivedAnnouncements());
+        }
+
+        [HttpPost("add")]
         public async Task<IActionResult> AddAnnouncement(AddAnnouncementDto newAnnouncement)
         {
             return Ok(await _announcementService.AddAnnouncement(newAnnouncement));
         }
 
-        [HttpPut]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateAnnouncement(UpdateAnnouncementDto updatedAnnouncement)
         {
             ServiceResponse<GetAnnouncementDto> response = await _announcementService.UpdateAnnouncement(updatedAnnouncement);
@@ -60,5 +66,18 @@ namespace SOC_IR.Controllers
 
             return Ok(response);
         }
+
+        [HttpPut("archive/{id}")]
+        public async Task<IActionResult> ArchiveAnnouncement(String announceID)
+        {
+            ServiceResponse<GetAnnouncementDto> response = await _announcementService.ArchiveAnnouncement(announceID);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
     }
 }

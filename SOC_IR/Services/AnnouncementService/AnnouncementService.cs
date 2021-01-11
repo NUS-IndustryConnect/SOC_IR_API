@@ -24,6 +24,7 @@ namespace SOC_IR.Services.AnnouncementService
         {
             ServiceResponse<List<GetAnnouncementDto>> serviceResponse = new ServiceResponse<List<GetAnnouncementDto>>();
             Announcement announcement = _mapper.Map<Announcement>(newAnnouncement);
+            announcement.isActive = true;
 
             await _context.Announcements.AddAsync(announcement);
             await _context.SaveChangesAsync();
@@ -36,6 +37,14 @@ namespace SOC_IR.Services.AnnouncementService
             ServiceResponse<List<GetAnnouncementDto>> serviceResponse = new ServiceResponse<List<GetAnnouncementDto>>();
             List<Announcement> dbAnnouncements = await _context.Announcements.ToListAsync();
             serviceResponse.Data = (dbAnnouncements.Select(a => _mapper.Map<GetAnnouncementDto>(a))).ToList();
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetStudentAnnouncementDto>>> GetAllUnarchivedAnnouncements()
+        {
+            ServiceResponse<List<GetStudentAnnouncementDto>> serviceResponse = new ServiceResponse<List<GetStudentAnnouncementDto>>();
+            List<Announcement> dbAnnouncements = await _context.Announcements.Where(a => a.isActive == true).ToListAsync();
+            serviceResponse.Data = (dbAnnouncements.Select(a => _mapper.Map<GetStudentAnnouncementDto>(a))).ToList();
             return serviceResponse;
         }
 
@@ -56,8 +65,8 @@ namespace SOC_IR.Services.AnnouncementService
                 announcement.subtitle = updatedAnnouncement.subtitle;
                 announcement.description = updatedAnnouncement.description;
                 announcement.isImportant = updatedAnnouncement.isImportant;
-                announcement.isActive = updatedAnnouncement.isActive;
                 announcement.validTill = updatedAnnouncement.validTill;
+                announcement.lastUpdated = updatedAnnouncement.lastUpdated;
 
                 _context.Announcements.Update(announcement);
                 await _context.SaveChangesAsync();
@@ -88,6 +97,28 @@ namespace SOC_IR.Services.AnnouncementService
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetAnnouncementDto>> ArchiveAnnouncement(String announceID)
+        {
+            ServiceResponse<GetAnnouncementDto> serviceResponse = new ServiceResponse<GetAnnouncementDto>();
+            try
+            {
+                Announcement announcement = await _context.Announcements.FirstOrDefaultAsync(a => a.announceId == announceID);
+                announcement.isActive = false;
+
+                _context.Announcements.Update(announcement);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = _mapper.Map<GetAnnouncementDto>(announcement);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
             return serviceResponse;
         }
     }

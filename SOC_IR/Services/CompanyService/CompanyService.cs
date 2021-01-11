@@ -1,9 +1,9 @@
-﻿using SOC_IR.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SOC_IR.Data;
 using SOC_IR.Dtos.Company;
 using SOC_IR.Model;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
