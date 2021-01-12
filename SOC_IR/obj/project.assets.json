@@ -8245,29 +8245,30 @@
     ]
   },
   "packageFolders": {
-    "/Users/sruthi/.nuget/packages/": {}
+    "C:\\Users\\pandh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
+      "projectUniqueName": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
       "projectName": "SOC_IR",
-      "projectPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
-      "packagesPath": "/Users/sruthi/.nuget/packages/",
-      "outputPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/",
+      "projectPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
+      "packagesPath": "C:\\Users\\pandh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/sruthi/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pandh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -8279,7 +8280,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -8340,12 +8340,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.8, 3.1.8]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8354,7 +8348,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   },

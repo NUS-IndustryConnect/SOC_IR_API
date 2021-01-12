@@ -50,9 +50,9 @@ namespace SOC_IR.Controllers
         }
 
         [HttpGet("user/{companyUserID}")]
-        async public Task<IActionResult> getCompanyPostStudent(string companyUserID)
+        async public Task<IActionResult> getCompanyPostByUser(string companyUserID)
         {
-            return Ok(await _companyPostService.GetCompanyPostUser(companyUserID));
+            return Ok(await _companyPostService.GetCompanyPostByUser(companyUserID));
         }
 
         [HttpPost("create")]
@@ -68,15 +68,15 @@ namespace SOC_IR.Controllers
         }
 
         [HttpDelete("delete")]
-        async public Task<IActionResult> deleteCompanyPost(List<string> ids)
+        async public Task<IActionResult> deleteCompanyPost(string id)
         {
-            return Ok(await _companyPostService.DeleteCompanyPosts(ids));
+            return Ok(await _companyPostService.DeleteCompanyPost(id));
         }
 
         [HttpPost("archive")]
-        async public Task<IActionResult> archiveCompanyPost(List<string> ids)
+        async public Task<IActionResult> archiveCompanyPost(string id)
         {
-            return Ok(await _companyPostService.ArchiveCompanyPosts(ids));
+            return Ok(await _companyPostService.ArchiveCompanyPost(id));
         }
     }
 }

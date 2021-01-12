@@ -7,22 +7,22 @@ namespace SOC_IR.Dtos.CompanyPost
 {
     public class GetCompanyPostStudentDto
     {
-        public string companyPostID { get; set; }
-        public string companyID { get; set; }
+        public string companyPostId { get; set; }
+        public string companyId { get; set; }
         public string companyName { get; set; }
         public string postTitle { get; set; }
         public string postSubTitle { get; set; }
         public string postDescription { get; set; }
         public string videoUrl { get; set; }
-        public List<string> links { get; set; }
+        public string links { get; set; }
         public string lastUpdated { get; set; }
         public string validTill { get; set; }
 
-        public GetCompanyPostStudentDto(string companyPostID, string companyID, string companyName, string postTitle, string postSubTitle, string postDescription, 
-            string videoUrl, List<string> links, string lastUpdated, string validTill)
+        public GetCompanyPostStudentDto(string companyPostId, string companyId, string companyName, string postTitle, string postSubTitle, 
+            string postDescription, string videoUrl, string links, string lastUpdated, string validTill)
         {
-            this.companyPostID = companyPostID;
-            this.companyID = companyID;
+            this.companyPostId = companyPostId;
+            this.companyId = companyId;
             this.companyName = companyName;
             this.postTitle = postTitle;
             this.postSubTitle = postSubTitle;

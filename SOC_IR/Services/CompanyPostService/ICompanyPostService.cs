@@ -11,14 +11,14 @@ namespace SOC_IR.Services.CompanyPostService
     {
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> GetCompanyPostAdmin();
         public Task<ServiceResponse<List<GetCompanyPostStudentDto>>> GetCompanyPostStudent();
-        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> GetCompanyPostUser(string id);
+        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> GetCompanyPostByUser(string id);
         public Task<ServiceResponse<List<GetCompanyPostAdminValidDto>>> GetValidCompanyPostAdmin();
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> GetCompanyPostByCompany(string id);
         public Task<ServiceResponse<List<GetCompanyPostAdminValidDto>>> GetValidCompanyPostByCompany(string id);
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> CreateCompanyPost(CreateCompanyPostDto companyPostDto);
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> UpdateCompanyPost(UpdateCompanyPostDto companyPostDto);
-        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ArchiveCompanyPosts(List<string> postIds);
-        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> DeleteCompanyPosts(List<string> postIds);
+        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ArchiveCompanyPost(string postId);
+        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> DeleteCompanyPost(string postId);
 
     }
 }
