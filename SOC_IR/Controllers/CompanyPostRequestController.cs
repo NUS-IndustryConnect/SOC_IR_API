@@ -40,13 +40,13 @@ namespace SOC_IR.Controllers
         [HttpPost("approve")]
         async public Task<IActionResult> createRequest(ApproveCompanyPostRequestDto dto)
         {
-            return Ok(await _companyPostRequestService.ApproveCompanyPosts(dto));
+            return Ok(await _companyPostRequestService.ApproveCompanyPost(dto));
         }
 
         [HttpPost("reject")]
         async public Task<IActionResult> createRequest(RejectCompanyPostRequestDto dto)
         {
-            return Ok(await _companyPostRequestService.RejectCompanyPosts(dto));
+            return Ok(await _companyPostRequestService.RejectCompanyPost(dto));
         }
     }
 

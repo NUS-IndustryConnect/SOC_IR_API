@@ -7,19 +7,21 @@ namespace SOC_IR.Dtos.CompanyPost
 {
     public class CreateCompanyPostDto
     {
-        public string companyID { get; set; }
+        public string companyId { get; set; }
+        public string companyUserId { get; set; }
         public string postTitle { get; set; }
         public string postSubTitle { get; set; }
         public string postDescription { get; set; }
         public string videoUrl { get; set; }
-        public List<string> links { get; set; }
+        public string links { get; set; }
         public string approvedBy { get; set; }
         public string validTill { get; set; }
 
-        public CreateCompanyPostDto(string companyID, string postTitle, string postSubTitle, string postDescription, 
-            string videoUrl, List<string> links, string approvedBy, string validTill)
+        public CreateCompanyPostDto(string companyId, string companyUserId, string postTitle, string postSubTitle, 
+            string postDescription, string videoUrl, string links, string approvedBy, string validTill)
         {
-            this.companyID = companyID;
+            this.companyId = companyId;
+            this.companyUserId = companyUserId;
             this.postTitle = postTitle;
             this.postSubTitle = postSubTitle;
             this.postDescription = postDescription;

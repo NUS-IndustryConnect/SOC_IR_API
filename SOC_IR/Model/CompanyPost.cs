@@ -10,24 +10,26 @@ namespace SOC_IR.Model
     public class CompanyPost
     {
         [Key]
-        public string companyPostID { get; set; }
-        public string companyID { get; set; }
+        public string companyPostId { get; set; }
+        public string companyId { get; set; }
+        public string companyUserId { get; set; }
         public string companyName { get; set; }
         public string postTitle { get; set; }
         public string postSubTitle { get; set; }
         public string postDescription { get; set; }
         public string videoUrl { get; set; }
-        public List<string> links { get; set; }
+        public string links { get; set; }
         public string lastUpdated { get; set; }
         public string approvedBy { get; set; }
         public string validTill { get; set; }
         public Boolean isActive { get; set; }
 
-        public CompanyPost(string companyPostID, string companyID, string companyName, string postTitle, string postSubTitle, string postDescription,
-            string videoUrl, List<string> links, string lastUpdated, string approvedBy, string validTill, bool isActive)
+        public CompanyPost(string companyPostId, string companyId, string companyUserId, string companyName, string postTitle, string postSubTitle, string postDescription,
+            string videoUrl, string links, string lastUpdated, string approvedBy, string validTill, bool isActive)
         {
-            this.companyPostID = companyPostID;
-            this.companyID = companyID;
+            this.companyPostId = companyPostId;
+            this.companyId = companyId;
+            this.companyUserId = companyUserId;
             this.companyName = companyName;
             this.postTitle = postTitle;
             this.postSubTitle = postSubTitle;
@@ -42,8 +44,8 @@ namespace SOC_IR.Model
 
         public CompanyPost(ApprovalDto data)
         {
-            this.companyPostID = data.request.companyPostRequestID;
-            this.companyID = data.request.companyID;
+            this.companyPostId = data.request.companyPostRequestId;
+            this.companyId = data.request.companyId;
             this.companyName = data.companyName;
             this.postTitle = data.request.postTitle;
             this.postSubTitle = data.request.postSubTitle;

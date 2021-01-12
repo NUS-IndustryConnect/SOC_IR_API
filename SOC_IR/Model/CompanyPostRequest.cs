@@ -11,22 +11,26 @@ namespace SOC_IR.Model
     
 
         [Key]
-        public string companyPostRequestID { get; set; }
-        public string companyID { get; set; }
+        public string companyPostRequestId { get; set; }
+        public string companyId { get; set; }
+        public string companyUserId { get; set; }
+        public string companyName { get; set; }
         public string postTitle { get; set; }
         public string postSubTitle { get; set; }
         public string postDescription { get; set; }
         public string videoUrl { get; set; }
-        public List<string> links { get; set; }
+        public string links { get; set; }
         public string validTill { get; set; }
         public string status { get; set; }
         public string feedback { get; set; }
 
-        public CompanyPostRequest(string companyPostRequestID, string companyID, string postTitle, string postSubTitle, string postDescription,
-            string videoUrl, List<string> links, string validTill, string status, string feedback)
+        public CompanyPostRequest(string companyPostRequestId, string companyId, string companyUserId, string companyName, string postTitle, string postSubTitle, 
+            string postDescription, string videoUrl, string links, string validTill, string status, string feedback)
         {
-            this.companyPostRequestID = companyPostRequestID;
-            this.companyID = companyID;
+            this.companyPostRequestId = companyPostRequestId;
+            this.companyId = companyId;
+            this.companyUserId = companyUserId;
+            this.companyName = companyName;
             this.postTitle = postTitle;
             this.postSubTitle = postSubTitle;
             this.postDescription = postDescription;
@@ -35,6 +39,11 @@ namespace SOC_IR.Model
             this.validTill = validTill;
             this.status = status;
             this.feedback = feedback;
+        }
+
+        public void companyUpdated(string companyName)
+        {
+            this.companyName = companyName;
         }
     }
 }

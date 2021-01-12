@@ -7,13 +7,13 @@ namespace SOC_IR.Dtos.Company
 {
     public class GetCompanyStudentDto
     {
-        public string companyID { get; set; }
+        public string companyId { get; set; }
         public string companyName { get; set; }
         public string companyDescription { get; set; }
 
-        public GetCompanyStudentDto(string companyID, string companyName, string companyDescription)
+        public GetCompanyStudentDto(string companyId, string companyName, string companyDescription)
         {
-            this.companyID = companyID;
+            this.companyId = companyId;
             this.companyName = companyName;
             this.companyDescription = companyDescription;
         }
