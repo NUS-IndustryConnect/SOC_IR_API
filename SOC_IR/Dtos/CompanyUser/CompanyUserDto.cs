@@ -7,19 +7,21 @@ namespace SOC_IR.Dtos.CompanyUser
 {
     public class CompanyUserDto
     {
-        public string companyUserID { get; set; }
-        public string companyID { get; set; }
+        public string companyUserId { get; set; }
+        public string companyId { get; set; }
+        public string companyName { get; set; }
         public string email { get; set; }
         public string lastLoggedIn { get; set; }
-        public List<string> companyUserPostIds { get; set; }
+        public Boolean isActive { get; set; }
 
-        public CompanyUserDto(string companyUserID, string companyID, string email, string lastLoggedIn, List<string> companyUserPostIds)
+        public CompanyUserDto(string companyUserId, string companyId, string companyName, string email, string lastLoggedIn, Boolean isActive)
         {
-            this.companyUserID = companyUserID;
-            this.companyID = companyID;
+            this.companyUserId = companyUserId;
+            this.companyId = companyId;
+            this.companyName = companyName;
             this.email = email;
             this.lastLoggedIn = lastLoggedIn;
-            this.companyUserPostIds = companyUserPostIds;
+            this.isActive = isActive;
         }
     }
 }

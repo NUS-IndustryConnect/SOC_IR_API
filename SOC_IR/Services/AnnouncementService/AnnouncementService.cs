@@ -25,6 +25,7 @@ namespace SOC_IR.Services.AnnouncementService
             ServiceResponse<List<GetAnnouncementDto>> serviceResponse = new ServiceResponse<List<GetAnnouncementDto>>();
             Announcement announcement = _mapper.Map<Announcement>(newAnnouncement);
             announcement.isActive = true;
+            announcement.lastUpdated = new DateTime().ToString();
 
             await _context.Announcements.AddAsync(announcement);
             await _context.SaveChangesAsync();
@@ -66,7 +67,7 @@ namespace SOC_IR.Services.AnnouncementService
                 announcement.description = updatedAnnouncement.description;
                 announcement.isImportant = updatedAnnouncement.isImportant;
                 announcement.validTill = updatedAnnouncement.validTill;
-                announcement.lastUpdated = updatedAnnouncement.lastUpdated;
+                announcement.lastUpdated = new DateTime().ToString();
 
                 _context.Announcements.Update(announcement);
                 await _context.SaveChangesAsync();

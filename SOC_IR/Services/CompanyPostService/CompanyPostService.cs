@@ -17,14 +17,14 @@ namespace SOC_IR.Services.CompanyPostService
         {
             _context = context;
         }
-        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.ArchiveCompanyPosts(List<string> postIds)
+        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.ArchiveCompanyPost(string postId)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            List<CompanyPost> posts = _context.CompanyPosts.ToList().Where(a => postIds.Contains(a.companyPostID)).ToList();
-            posts.ForEach(a => a.archivePost());
-            _context.CompanyPosts.UpdateRange(posts);
+            CompanyPost post = await _context.CompanyPosts.FirstAsync(async => async.companyPostId == postId);
+            post.archivePost();
+            _context.CompanyPosts.Update(post);
             await _context.SaveChangesAsync();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a=> new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a=> new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
             
@@ -33,8 +33,8 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.CreateCompanyPost(CreateCompanyPostDto companyPostDto)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            Company companyOfPost = await _context.Companies.FirstAsync(a => a.companyID == companyPostDto.companyID);
-            CompanyUser companyUserOfPost = await _context.CompanyUsers.FirstAsync(a => a.companyUserID == companyPostDto.approvedBy);
+            Company companyOfPost = await _context.Companies.FirstAsync(a => a.companyId == companyPostDto.companyId);
+            CompanyUser companyUserOfPost = await _context.CompanyUsers.FirstAsync(a => a.companyUserId == companyPostDto.approvedBy);
             if (companyOfPost == null)
             {
                 response.Success = false;
@@ -51,27 +51,21 @@ namespace SOC_IR.Services.CompanyPostService
             
             string finalString = new IDGenerator.IDGenerator().generate();
             string lastUpdated = new DateTime().ToString();
-            CompanyPost newPost = new CompanyPost(finalString, companyPostDto.companyID, companyOfPost.companyName, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, new List<string>(), lastUpdated, companyPostDto.approvedBy, companyPostDto.validTill, true);
-            companyOfPost.addPost(finalString);
-            companyUserOfPost.addPost(finalString);
-            _context.Companies.Update(companyOfPost);
-            _context.CompanyUsers.Update(companyUserOfPost);
+            CompanyPost newPost = new CompanyPost(finalString, companyPostDto.companyId, companyPostDto.companyUserId, companyOfPost.companyName, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, companyPostDto.links, lastUpdated, companyPostDto.approvedBy, companyPostDto.validTill, true);
             await _context.CompanyPosts.AddAsync(newPost);
             await _context.SaveChangesAsync();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
         }
 
-        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.DeleteCompanyPosts(List<string> postIds)
+        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.DeleteCompanyPost(string postId)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            List<CompanyPost> deletedPosts = await _context.CompanyPosts.Where(a => postIds.Contains(a.companyPostID)).ToListAsync();
-            await _context.Companies.ForEachAsync(a => a.deletePosts(postIds));
-            await _context.CompanyUsers.ForEachAsync(a => a.deletePosts(postIds));
-            _context.CompanyPosts.RemoveRange(deletedPosts);
+            CompanyPost deletedPost = await _context.CompanyPosts.FirstAsync(async => async.companyPostId == postId);
+            _context.CompanyPosts.RemoveRange(deletedPost);
             await _context.SaveChangesAsync();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
         }
@@ -79,7 +73,7 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.GetCompanyPostAdmin()
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
         }
@@ -87,25 +81,22 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.GetCompanyPostByCompany(string id)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Where(a=>a.companyID == id).Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
-            response.Data = postList;
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Where(a=>a.companyId == id).Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             return response;
         }
 
         async Task<ServiceResponse<List<GetCompanyPostStudentDto>>> ICompanyPostService.GetCompanyPostStudent()
         {
             ServiceResponse<List<GetCompanyPostStudentDto>> response = new ServiceResponse<List<GetCompanyPostStudentDto>>();
-            List<GetCompanyPostStudentDto> postList = await _context.CompanyPosts.Where(a => a.isActive).Select(a => new GetCompanyPostStudentDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.validTill)).ToListAsync();
+            List<GetCompanyPostStudentDto> postList = await _context.CompanyPosts.Where(a => a.isActive).Select(a => new GetCompanyPostStudentDto(a.companyPostId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.validTill)).ToListAsync();
             response.Data = postList;
             return response;
         }
 
-        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.GetCompanyPostUser(string id)
+        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.GetCompanyPostByUser(string id)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            CompanyUser user = await _context.CompanyUsers.FirstAsync(a => a.companyUserID == id);
-            List<string> postIdList = user.companyUserPostIds;
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Where(a => postIdList.Contains(a.companyPostID)).Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Where(a => a.companyUserId == id).Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
         }
@@ -113,7 +104,7 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminValidDto>>> ICompanyPostService.GetValidCompanyPostAdmin()
         {
             ServiceResponse<List<GetCompanyPostAdminValidDto>> response = new ServiceResponse<List<GetCompanyPostAdminValidDto>>();
-            List<GetCompanyPostAdminValidDto> postList = await _context.CompanyPosts.Where(a => a.isActive).Select(a => new GetCompanyPostAdminValidDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill)).ToListAsync();
+            List<GetCompanyPostAdminValidDto> postList = await _context.CompanyPosts.Where(a => a.isActive).Select(a => new GetCompanyPostAdminValidDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill)).ToListAsync();
             response.Data = postList;
             return response;
         }
@@ -121,7 +112,7 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminValidDto>>> ICompanyPostService.GetValidCompanyPostByCompany(string id)
         {
             ServiceResponse<List<GetCompanyPostAdminValidDto>> response = new ServiceResponse<List<GetCompanyPostAdminValidDto>>();
-            List<GetCompanyPostAdminValidDto> postList = await _context.CompanyPosts.Where(a => a.isActive && a.companyID == id).Select(a => new GetCompanyPostAdminValidDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill)).ToListAsync();
+            List<GetCompanyPostAdminValidDto> postList = await _context.CompanyPosts.Where(a => a.isActive && a.companyId == id).Select(a => new GetCompanyPostAdminValidDto(a.companyPostId, a.companyId, a.companyUserId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill)).ToListAsync();
             response.Data = postList;
             return response;
         }
@@ -129,11 +120,11 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.UpdateCompanyPost(UpdateCompanyPostDto companyPostDto)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            CompanyPost post = await _context.CompanyPosts.FirstAsync(a => a.companyPostID == companyPostDto.companyPostId);
-            CompanyPost updated = new CompanyPost(post.companyPostID, post.companyID, post.companyName, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, companyPostDto.links, new DateTime().ToString(), companyPostDto.approvedBy, companyPostDto.validTill, post.isActive);
+            CompanyPost post = await _context.CompanyPosts.FirstAsync(a => a.companyPostId == companyPostDto.companyPostId);
+            CompanyPost updated = new CompanyPost(post.companyPostId, post.companyId, post.companyName, companyPostDto.companyUserId, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, companyPostDto.links, new DateTime().ToString(), companyPostDto.approvedBy, companyPostDto.validTill, post.isActive);
             _context.CompanyPosts.Update(updated);
             await _context.SaveChangesAsync();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostID, a.companyID, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
 

@@ -9,13 +9,13 @@ namespace SOC_IR.Model
     public class Admin
     {
         [Key]
-        public string adminID { get; set; }
+        public string adminId { get; set; }
         public string name { get; set; }
         public string email { get; set; }
 
-        public Admin(string adminID, string name, string email)
+        public Admin(string adminId, string name, string email)
         {
-            this.adminID = adminID;
+            this.adminId = adminId;
             this.name = name;
             this.email = email;
         }
