@@ -112,7 +112,7 @@ namespace SOC_IR.Services.CompanyService
             companyUsers.ForEach(a => a.archiveUser());
 
             _context.CompanyPosts.UpdateRange(companyPosts);
-            _context.CompanyPostRequests.UpdateRange(requests);
+            _context.CompanyPostRequests.RemoveRange(requests);
 
             _context.Companies.Update(company);
             await _context.SaveChangesAsync();
