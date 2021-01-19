@@ -106,7 +106,6 @@ namespace SOC_IR.Services.CompanyService
             Company company = await _context.Companies.FirstAsync(a => a.companyId == companyId);
             List<CompanyPost> companyPosts = await _context.CompanyPosts.Where(a => a.companyId == company.companyId).ToListAsync();
             companyPosts.ForEach(a => a.archivePost());
-            // Do smth abt post requests
             List<CompanyPostRequest> requests = await _context.CompanyPostRequests.Where(a => a.companyId == company.companyId).ToListAsync();
             List<CompanyUser> companyUsers = await _context.CompanyUsers.Where(a => a.companyId == company.companyId).ToListAsync();
             companyUsers.ForEach(a => a.archiveUser());
