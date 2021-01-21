@@ -48,5 +48,11 @@ namespace SOC_IR.Controllers
         {
             return Ok(await _companyService.DeleteCompany(companyID));
         }
+
+        [HttpPost("archive/{companyID}")]
+        async public Task<IActionResult> archiveCompany(string companyID)
+        {
+            return Ok(await _companyService.ArchiveCompany(companyID));
+        }
     }
 }

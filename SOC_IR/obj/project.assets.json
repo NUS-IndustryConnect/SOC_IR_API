@@ -8437,30 +8437,29 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pandh\\.nuget\\packages\\": {}
+    "/Users/sruthi/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
+      "projectUniqueName": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
       "projectName": "SOC_IR",
-      "projectPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
-      "packagesPath": "C:\\Users\\pandh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\obj\\",
+      "projectPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
+      "packagesPath": "/Users/sruthi/.nuget/packages/",
+      "outputPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pandh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/sruthi/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -8472,6 +8471,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -8536,6 +8536,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.8, 3.1.8]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8544,11 +8550,17 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/project.nuget.cache : After parsing a value an unexpected character was encountered: \". Path 'expectedPackageFiles[182]', line 190, position 4."
+    },
     {
       "code": "NU1701",
       "level": "Warning",
