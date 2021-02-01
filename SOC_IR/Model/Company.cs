@@ -18,13 +18,15 @@ namespace SOC_IR.Model
         public string companyTier { get; set; }
         [Column("DESC_T")]
         public string companyDescription { get; set; }
+        public Boolean isActive { get; set; }
 
-        public Company(string companyId, string companyName, string companyTier, string companyDescription)
+        public Company(string companyId, string companyName, string companyTier, string companyDescription, Boolean isActive)
         {
             this.companyId = companyId;
             this.companyName = companyName;
             this.companyTier = companyTier;
             this.companyDescription = companyDescription;
+            this.isActive = isActive;
         }
     }
 }

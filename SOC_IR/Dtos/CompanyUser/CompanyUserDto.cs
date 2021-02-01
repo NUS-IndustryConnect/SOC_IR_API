@@ -12,14 +12,16 @@ namespace SOC_IR.Dtos.CompanyUser
         public string companyName { get; set; }
         public string email { get; set; }
         public string lastLoggedIn { get; set; }
+        public Boolean isActive { get; set; }
 
-        public CompanyUserDto(string companyUserId, string companyId, string companyName, string email, string lastLoggedIn)
+        public CompanyUserDto(string companyUserId, string companyId, string companyName, string email, string lastLoggedIn, Boolean isActive)
         {
             this.companyUserId = companyUserId;
             this.companyId = companyId;
             this.companyName = companyName;
             this.email = email;
             this.lastLoggedIn = lastLoggedIn;
+            this.isActive = isActive;
         }
     }
 }
