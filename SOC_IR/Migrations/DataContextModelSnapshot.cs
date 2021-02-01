@@ -20,7 +20,7 @@ namespace SOC_IR.Migrations
 
             modelBuilder.Entity("SOC_IR.Model.Admin", b =>
                 {
-                    b.Property<string>("adminId")
+                    b.Property<string>("nusNetId")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("email")
@@ -29,7 +29,7 @@ namespace SOC_IR.Migrations
                     b.Property<string>("name")
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("adminId");
+                    b.HasKey("nusNetId");
 
                     b.ToTable("Admins");
                 });

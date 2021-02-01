@@ -13,6 +13,12 @@ namespace SOC_IR.Data
         public DbSet<Admin> Admins { get; set; }
         public DbSet<CompanyPostRequest> CompanyPostRequests { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Configure default schema
+            modelBuilder.HasDefaultSchema("ownidc");
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseOracle(@"User Id=prjidc; Password=industr4connec4; Data Source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = sidt.comp.nus.edu.sg)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = sidt.comp.nus.edu.sg)))");

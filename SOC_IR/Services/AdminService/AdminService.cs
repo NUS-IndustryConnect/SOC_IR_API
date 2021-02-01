@@ -17,8 +17,8 @@ namespace SOC_IR.Services.AdminService
         public async Task<ServiceResponse<GetAdminDto>> GetAdminById(string id)
         {
             ServiceResponse<GetAdminDto> response = new ServiceResponse<GetAdminDto>();
-            Admin admin = await _context.Admins.FirstAsync(a => a.adminId == id);
-            GetAdminDto adminDto = new GetAdminDto(admin.adminId, admin.name, admin.email);
+            Admin admin = await _context.Admins.FirstAsync(a => a.nusNetId == id);
+            GetAdminDto adminDto = new GetAdminDto(admin.nusNetId, admin.name, admin.email);
             response.Data = adminDto;
             return response;
 
@@ -27,7 +27,7 @@ namespace SOC_IR.Services.AdminService
         public async Task<ServiceResponse<List<GetAdminDto>>> GetAllAdmin()
         {
             ServiceResponse<List<GetAdminDto>> response = new ServiceResponse<List<GetAdminDto>>();
-            List<GetAdminDto> admins = await _context.Admins.Select(admin => new GetAdminDto(admin.adminId, admin.name, admin.email)).ToListAsync();
+            List<GetAdminDto> admins = await _context.Admins.Select(admin => new GetAdminDto(admin.nusNetId, admin.name, admin.email)).ToListAsync();
             response.Data = admins;
             return response;
         }
