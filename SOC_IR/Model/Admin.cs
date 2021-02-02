@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SOC_IR.Model
 {
-    [Table("IDC_Admin", Schema = "OWNIDC")]
+    [Table("IDC_ADMIN", Schema = "OWNIDC")]
     public class Admin
     {
         [Key]

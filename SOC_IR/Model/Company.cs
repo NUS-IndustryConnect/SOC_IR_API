@@ -15,9 +15,11 @@ namespace SOC_IR.Model
         public string companyId { get; set; }
         [Column("ORGN_NM")]
         public string companyName { get; set; }
+        [Column("TIER_C")]
         public string companyTier { get; set; }
         [Column("DESC_T")]
         public string companyDescription { get; set; }
+        [Column("ACTIVE_F")]
         public Boolean isActive { get; set; }
 
         public Company(string companyId, string companyName, string companyTier, string companyDescription, Boolean isActive)

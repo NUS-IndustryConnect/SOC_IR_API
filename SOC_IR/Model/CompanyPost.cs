@@ -4,24 +4,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using SOC_IR.Dtos.CompanyPostRequest;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SOC_IR.Model
 {
+    [Table("IDC_POST", Schema = "OWNIDC")]
     public class CompanyPost
     {
         [Key]
+        [Column("POST_ID")]
         public string companyPostId { get; set; }
+        [Column("ORGN_ID")]
         public string companyId { get; set; }
+        [Column("USER_ID")]
         public string companyUserId { get; set; }
+        [Column("ORGN_NM")]
         public string companyName { get; set; }
+        [Column("TITLE_T")]
         public string postTitle { get; set; }
+        [Column("SUBTITLE_T")]
         public string postSubTitle { get; set; }
+        [Column("DESC_T")]
         public string postDescription { get; set; }
+        [Column("VIDEO_URL_T")]
         public string videoUrl { get; set; }
+        [Column("LINK_T")]
         public string links { get; set; }
+        [Column("LAST_UPD_DTM")]
         public string lastUpdated { get; set; }
+        [Column("APPV_NUSNET_ID")]
         public string approvedBy { get; set; }
+        [Column("EXP_D")]
         public string validTill { get; set; }
+        [Column("ACTIVE_F")]
         public Boolean isActive { get; set; }
 
         public CompanyPost(string companyPostId, string companyId, string companyUserId, string companyName, string postTitle, string postSubTitle, string postDescription,
