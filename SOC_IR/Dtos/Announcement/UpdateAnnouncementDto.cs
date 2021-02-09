@@ -11,6 +11,5 @@ namespace SOC_IR.Dtos.Announcement
         public Boolean isImportant { get; set; }
         public string validTill { get; set; }
         public string announcedBy { get; set; }
-        public string lastUpdated { get; set; }
     }
 }

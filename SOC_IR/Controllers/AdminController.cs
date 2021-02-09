@@ -24,10 +24,10 @@ namespace SOC_IR.Controllers
             return Ok(await _adminService.GetAllAdmin());
         }
 
-        [HttpGet("{adminID}")]
-        async public Task<IActionResult> getAdminById(string adminID)
+        [HttpGet("{nusNetId}")]
+        async public Task<IActionResult> getAdminById(string nusNetId)
         {
-            return Ok(await _adminService.GetAdminById(adminID));
+            return Ok(await _adminService.GetAdminById(nusNetId));
         }
     }
 }
