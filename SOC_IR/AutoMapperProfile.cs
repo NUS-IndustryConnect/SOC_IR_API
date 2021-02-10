@@ -11,6 +11,7 @@ namespace SOC_IR
             CreateMap<Announcement, GetAnnouncementDto>();
             CreateMap<Announcement, GetStudentAnnouncementDto>();
             CreateMap<AddAnnouncementDto, Announcement>();
+            CreateMap<ArchiveAnnouncementDto, Announcement>();
         }
     }
 }

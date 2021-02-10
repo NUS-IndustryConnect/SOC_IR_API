@@ -14,6 +14,6 @@ namespace SOC_IR.Services.AnnouncementService
         Task<ServiceResponse<List<GetAnnouncementDto>>> AddAnnouncement(AddAnnouncementDto newAnnouncement);
         Task<ServiceResponse<GetAnnouncementDto>> UpdateAnnouncement(UpdateAnnouncementDto updatedAnnouncement);
         Task<ServiceResponse<List<GetAnnouncementDto>>> DeleteAnnouncement(string id);
-        Task<ServiceResponse<GetAnnouncementDto>> ArchiveAnnouncement(String announceID);
+        Task<ServiceResponse<GetAnnouncementDto>> ArchiveAnnouncement(ArchiveAnnouncementDto archiveAnnouncement);
     }
 }
