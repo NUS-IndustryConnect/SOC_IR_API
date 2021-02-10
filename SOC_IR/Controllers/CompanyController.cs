@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC_IR.Dtos.Company;
+using SOC_IR.Model;
 using SOC_IR.Services.CompanyService;
 using System;
 using System.Collections.Generic;
@@ -16,43 +17,78 @@ namespace SOC_IR.Controllers
 
         public CompanyController(ICompanyService companyService)
         {
-            this._companyService = companyService;
+            _companyService = companyService;
         }
 
         [HttpGet("admin")]
         async public Task<IActionResult> getCompanyAdmin()
         {
-            return Ok(await _companyService.GetCompanyAdmin());
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.GetCompanyAdmin();
+            return Ok(response.Data);
         }
 
         [HttpGet("student")]
         async public Task<IActionResult> getCompanyStudent()
         {
-            return Ok(await _companyService.GetCompanyStudent());
+            ServiceResponse<List<GetCompanyStudentDto>> response = await _companyService.GetCompanyStudent();
+            return Ok(response.Data);
         }
 
         [HttpPost("create")]
         async public Task<IActionResult> createCompany(CreateCompanyDto companyDto)
         {
-            return Ok(await _companyService.CreateCompany(companyDto));
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.CreateCompany(companyDto);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+           
         }
 
         [HttpPost("update")]
         async public Task<IActionResult> createCompany(UpdateCompanyDto companyDto)
         {
-            return Ok(await _companyService.UpdateCompany(companyDto));
+            ServiceResponse<GetCompanyAdminDto> response = await _companyService.UpdateCompany(companyDto);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
 
         [HttpDelete("{companyID}")]
         async public Task<IActionResult> deleteCompany(string companyID)
         {
-            return Ok(await _companyService.DeleteCompany(companyID));
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.DeleteCompany(companyID);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
 
         [HttpPost("archive/{companyID}")]
         async public Task<IActionResult> archiveCompany(string companyID)
         {
-            return Ok(await _companyService.ArchiveCompany(companyID));
+            ServiceResponse<GetCompanyAdminDto> response = await _companyService.ArchiveCompany(companyID);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ namespace SOC_IR.Services.CompanyService
 {
     public interface ICompanyService
     {
+        public Task<ServiceResponse<List<Company>>> GetCompany();
         public Task<ServiceResponse<List<GetCompanyAdminDto>>> GetCompanyAdmin();
         public Task<ServiceResponse<List<GetCompanyStudentDto>>> GetCompanyStudent();
         public Task<ServiceResponse<List<GetCompanyAdminDto>>> CreateCompany(CreateCompanyDto companyDto);

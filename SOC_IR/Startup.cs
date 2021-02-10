@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Oracle.ManagedDataAccess.Client;
 using SOC_IR.Data;
 using SOC_IR.Services.AnnouncementService;
+using SOC_IR.Services.CompanyService;
 
 namespace SOC_IR
 {
@@ -34,6 +35,7 @@ namespace SOC_IR
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IAnnouncementService, AnnouncementService>();
+            services.AddScoped<ICompanyService, CompanyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

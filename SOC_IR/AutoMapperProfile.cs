@@ -1,5 +1,6 @@
 using AutoMapper;
 using SOC_IR.Dtos.Announcement;
+using SOC_IR.Dtos.Company;
 using SOC_IR.Model;
 
 namespace SOC_IR
@@ -11,6 +12,8 @@ namespace SOC_IR
             CreateMap<Announcement, GetAnnouncementDto>();
             CreateMap<Announcement, GetStudentAnnouncementDto>();
             CreateMap<AddAnnouncementDto, Announcement>();
+            CreateMap<Company, GetCompanyAdminDto>();
+            CreateMap<Company, GetCompanyStudentDto>();
         }
     }
 }
