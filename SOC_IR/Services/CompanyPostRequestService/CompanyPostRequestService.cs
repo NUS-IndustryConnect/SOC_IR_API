@@ -20,10 +20,18 @@ namespace SOC_IR.Services.CompanyPostRequestService
         async Task<ServiceResponse<List<GetCompanyPostRequestDto>>> ICompanyPostRequestService.ApproveCompanyPost(ApproveCompanyPostRequestDto toApprove)
         {
             ServiceResponse<List<GetCompanyPostRequestDto>> response = new ServiceResponse<List<GetCompanyPostRequestDto>>();
-            CompanyPostRequest req = await _context.CompanyPostRequests.FirstAsync(a => toApprove.companyPostRequestId == a.companyPostRequestId);
+            CompanyPostRequest req = await _context.CompanyPostRequests.FirstOrDefaultAsync(a => toApprove.companyPostRequestId == a.companyPostRequestId);
+            Admin admin = await _context.Admins.FirstOrDefaultAsync(a => toApprove.approvedby == a.nusNetId);
+
+            if (req == null)
+            {
+                response.Success = false;
+                response.Message = "This request does not exist";
+                return response;
+            }
             string companyName = _context.Companies.FirstAsync(a => a.companyId == req.companyId).Result.companyName;
             string approvedBy = toApprove.approvedby;
-            CompanyPost post = new CompanyPost(new ApprovalDto(req, companyName, approvedBy));
+            CompanyPost post = new CompanyPost(req.companyUserId, new ApprovalDto(req, companyName, approvedBy));
             _context.CompanyPostRequests.Remove(req);
             await _context.CompanyPosts.AddAsync(post);
             await _context.SaveChangesAsync();
@@ -35,7 +43,22 @@ namespace SOC_IR.Services.CompanyPostRequestService
         async Task<ServiceResponse<List<GetCompanyPostRequestDto>>> ICompanyPostRequestService.CreateCompanyPostRequest(CreateCompanyPostRequestDto toCreate)
         {
             ServiceResponse<List<GetCompanyPostRequestDto>> response = new ServiceResponse<List<GetCompanyPostRequestDto>>();
-            Company comp = await _context.Companies.FirstAsync(a => a.companyId == toCreate.companyId);
+            Company comp = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == toCreate.companyId);
+            CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.companyUserId == toCreate.companyUserId);
+            if (comp == null)
+            {
+                response.Success = false;
+                response.Message = "The company approving the request does not exist";
+                return response;
+            }
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "The company user creating this does not exist";
+                return response;
+            }
+
+
             string finalString = new IDGenerator.IDGenerator().generate();
             string lastUpdated = new DateTime().ToString();
             CompanyPostRequest req = new CompanyPostRequest(finalString, toCreate.companyId, toCreate.companyUserId, comp.companyName, toCreate.postTitle,
@@ -66,7 +89,15 @@ namespace SOC_IR.Services.CompanyPostRequestService
         async Task<ServiceResponse<List<GetCompanyPostRequestDto>>> ICompanyPostRequestService.RejectCompanyPost(RejectCompanyPostRequestDto toReject)
         {
             ServiceResponse<List<GetCompanyPostRequestDto>> response = new ServiceResponse<List<GetCompanyPostRequestDto>>();
-            CompanyPostRequest request = await _context.CompanyPostRequests.FirstAsync(a => a.companyPostRequestId == toReject.companyPostRequestID);
+            CompanyPostRequest request = await _context.CompanyPostRequests.FirstOrDefaultAsync(a => a.companyPostRequestId == toReject.companyPostRequestID);
+
+            if (request == null)
+            {
+                response.Success = false;
+                response.Message = "This request does not exist";
+                return response;
+            }
+
             request.feedback = toReject.feedback;
             request.status = "rejected";
             _context.CompanyPostRequests.Update(request);

@@ -55,7 +55,7 @@ namespace SOC_IR.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             ServiceResponse<List<GetAnnouncementDto>> response = await _announcementService.DeleteAnnouncement(id);
@@ -68,9 +68,9 @@ namespace SOC_IR.Controllers
         }
 
         [HttpPut("archive/{id}")]
-        public async Task<IActionResult> ArchiveAnnouncement(String announceID)
+        public async Task<IActionResult> ArchiveAnnouncement(ArchiveAnnouncementDto archiveAnnouncement)
         {
-            ServiceResponse<GetAnnouncementDto> response = await _announcementService.ArchiveAnnouncement(announceID);
+            ServiceResponse<GetAnnouncementDto> response = await _announcementService.ArchiveAnnouncement(archiveAnnouncement);
             if (response.Data == null)
             {
                 return NotFound(response);

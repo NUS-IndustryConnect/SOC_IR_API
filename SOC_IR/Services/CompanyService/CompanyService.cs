@@ -36,15 +36,14 @@ namespace SOC_IR.Services.CompanyService
             await _context.Companies.AddAsync(newCompany);
             await _context.SaveChangesAsync();
             List<Company> newCompanyList = await _context.Companies.ToListAsync();
-            List<GetCompanyAdminDto> data = newCompanyList.Select(a => new GetCompanyAdminDto(a.companyId, a.companyName, a.companyTier, a.companyDescription, a.isActive)).ToList();
-            response.Data = data;
+            response.Data = newCompanyList.Select(a => new GetCompanyAdminDto(a.companyId, a.companyName, a.companyTier, a.companyDescription, a.isActive)).ToList(); ;
             return response;
         }
 
         async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.DeleteCompany(string id)
         {
             ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
-            Company removed = await _context.Companies.FirstAsync(a => a.companyId == id);
+            Company removed = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == id);
 
             if(removed == null)
             {
@@ -70,8 +69,9 @@ namespace SOC_IR.Services.CompanyService
         async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.GetCompanyAdmin()
         {
             ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
-            List<GetCompanyAdminDto> data = await _context.Companies.Select(a => _mapper.Map<GetCompanyAdminDto>(a)).ToListAsync();
-            response.Data = data;
+            List<Company> comps = await _context.Companies.ToListAsync();
+            List<GetCompanyAdminDto> dataList = comps.Select(a =>  _mapper.Map<GetCompanyAdminDto>(a)).ToList();
+            response.Data = dataList;
             return response;
         }
 
@@ -84,10 +84,11 @@ namespace SOC_IR.Services.CompanyService
             return response;
         }
 
-        async Task<ServiceResponse<GetCompanyAdminDto>> ICompanyService.UpdateCompany(UpdateCompanyDto updatedCompanyDto)
+        //currently supports updating archived posts, seek clarification
+        async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.UpdateCompany(string companyId, UpdateCompanyDto updatedCompanyDto)
         {
-            ServiceResponse<GetCompanyAdminDto> response = new ServiceResponse<GetCompanyAdminDto>();
-            Company update = await _context.Companies.FirstAsync(a => a.companyId == updatedCompanyDto.companyId);
+            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
+            Company update = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == companyId);
             if (update == null)
             {
                 response.Success = false;
@@ -95,31 +96,39 @@ namespace SOC_IR.Services.CompanyService
                 return response;
             }
 
-            Company updated = new Company(updatedCompanyDto.companyId, updatedCompanyDto.companyName, updatedCompanyDto.companyTier,
-                updatedCompanyDto.companyDescription, updatedCompanyDto.isActive);
+            string oldname = update.companyName;
+            update.companyName = updatedCompanyDto.companyName;
+            update.companyTier = updatedCompanyDto.companyTier;
+            update.companyDescription = updatedCompanyDto.companyDescription;
 
-            if (update.companyName != updated.companyName)
+            if (oldname != update.companyName)
             {
-                List<CompanyPost> posts = await _context.CompanyPosts.Where(a => a.companyId == updatedCompanyDto.companyId).ToListAsync();
-                posts.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
-                List<CompanyPostRequest> requests = await _context.CompanyPostRequests.Where(a => a.companyId == updatedCompanyDto.companyId).ToListAsync();
-                posts.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
-                requests.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
-                _context.CompanyPosts.UpdateRange(posts);
-                _context.CompanyPostRequests.UpdateRange(requests);
+                List<CompanyPost> posts = await _context.CompanyPosts.Where(a => a.companyId == companyId).ToListAsync();
+                if(posts.Count != 0)
+                {
+                    posts.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
+                    _context.CompanyPosts.UpdateRange(posts);
+                }
+                List<CompanyPostRequest> requests = await _context.CompanyPostRequests.Where(a => a.companyId == companyId).ToListAsync();
+                if (requests.Count != 0)
+                {
+                    requests.ForEach(a => a.companyUpdated(updatedCompanyDto.companyName));
+                    _context.CompanyPostRequests.UpdateRange(requests);
+                }
             }
 
-            _context.Companies.Update(updated);
+            _context.Companies.Update(update);
             await _context.SaveChangesAsync();
-            GetCompanyAdminDto data = new GetCompanyAdminDto(updated.companyId, updated.companyName, updated.companyTier, updated.companyDescription, updated.isActive);
-            response.Data = data;
+            List<Company> comps = await _context.Companies.ToListAsync();
+            List<GetCompanyAdminDto> dataList = comps.Select(a => _mapper.Map<GetCompanyAdminDto>(a)).ToList();
+            response.Data = dataList;
             return response;
         }
 
-        async Task<ServiceResponse<GetCompanyAdminDto>> ICompanyService.ArchiveCompany(string companyId)
+        async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.ArchiveCompany(string companyId)
         {
             Company company = await _context.Companies.FirstAsync(a => a.companyId == companyId);
-            ServiceResponse<GetCompanyAdminDto> response = new ServiceResponse<GetCompanyAdminDto>();
+            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
             if (company == null)
             {
                 response.Success = false;
@@ -135,10 +144,12 @@ namespace SOC_IR.Services.CompanyService
             _context.CompanyPosts.UpdateRange(companyPosts);
             _context.CompanyPostRequests.RemoveRange(requests);
 
+            company = company.archive();
             _context.Companies.Update(company);
             await _context.SaveChangesAsync();
-            GetCompanyAdminDto data = new GetCompanyAdminDto(company.companyId, company.companyName, company.companyTier, company.companyDescription, company.isActive);
-            response.Data = data;
+            List<Company> comps = await _context.Companies.ToListAsync();
+            List<GetCompanyAdminDto> dataList = comps.Select(a => _mapper.Map<GetCompanyAdminDto>(a)).ToList();
+            response.Data = dataList;
             return response;
         }
 

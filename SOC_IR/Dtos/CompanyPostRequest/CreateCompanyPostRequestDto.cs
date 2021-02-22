@@ -13,7 +13,7 @@ namespace SOC_IR.Dtos.CompanyPostRequest
         public string postSubTitle { get; set; }
         public string postDescription { get; set; }
         public string videoUrl { get; set; }
-        public string  links { get; set; }
+        public string links { get; set; }
         public string validTill { get; set; }
     }
 }

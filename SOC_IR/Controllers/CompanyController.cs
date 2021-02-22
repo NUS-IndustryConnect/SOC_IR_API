@@ -40,7 +40,7 @@ namespace SOC_IR.Controllers
             ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.CreateCompany(companyDto);
             if (response.Success)
             {
-                return Ok(response);
+                return Ok(response.Data);
             }
             else
             {
@@ -49,17 +49,17 @@ namespace SOC_IR.Controllers
            
         }
 
-        [HttpPost("update")]
-        async public Task<IActionResult> createCompany(UpdateCompanyDto companyDto)
+        [HttpPut("update/{companyId}")]
+        async public Task<IActionResult> updateCompany(string companyId, UpdateCompanyDto updatedCompanyDto)
         {
-            ServiceResponse<GetCompanyAdminDto> response = await _companyService.UpdateCompany(companyDto);
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.UpdateCompany(companyId, updatedCompanyDto);
             if (response.Success)
             {
                 return Ok(response.Data);
             }
             else
             {
-                return BadRequest(response.Message);
+                return NotFound(response.Message);
             }
         }
 
@@ -73,21 +73,21 @@ namespace SOC_IR.Controllers
             }
             else
             {
-                return BadRequest(response.Message);
+                return NotFound(response.Message);
             }
         }
 
-        [HttpPost("archive/{companyID}")]
+        [HttpPut("archive/{companyID}")]
         async public Task<IActionResult> archiveCompany(string companyID)
         {
-            ServiceResponse<GetCompanyAdminDto> response = await _companyService.ArchiveCompany(companyID);
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.ArchiveCompany(companyID);
             if (response.Success)
             {
                 return Ok(response.Data);
             }
             else
             {
-                return BadRequest(response.Message);
+                return NotFound(response.Message);
             }
         }
     }

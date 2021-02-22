@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC_IR.Dtos.CompanyPost;
+using SOC_IR.Model;
 using SOC_IR.Services.CompanyPostService;
 using System;
 using System.Collections.Generic;
@@ -22,61 +23,121 @@ namespace SOC_IR.Controllers
         [HttpGet("")]
         async public Task<IActionResult> getCompanyPostAdmin()
         {
-            return Ok(await _companyPostService.GetCompanyPostAdmin());
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.GetCompanyPostAdmin();
+            return Ok(response.Data);
         }
 
         [HttpGet("valid")]
         async public Task<IActionResult> getValidCompanyPostAdmin()
         {
-            return Ok(await _companyPostService.GetValidCompanyPostAdmin());
+            ServiceResponse<List<GetCompanyPostAdminValidDto>> response = await _companyPostService.GetValidCompanyPostAdmin();
+            return Ok(response.Data);
         }
 
-        [HttpGet("company/{companyID}")]
-        async public Task<IActionResult> getCompanyPostByCompany(string companyID)
+        [HttpGet("company/{companyId}")]
+        async public Task<IActionResult> getCompanyPostByCompany(string companyId)
         {
-            return Ok(await _companyPostService.GetCompanyPostByCompany(companyID));
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.GetCompanyPostByCompany(companyId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+            
         }
 
-        [HttpGet("company/{companyID}/valid")]
-        async public Task<IActionResult> getValidCompanyPostByCompany(string companyID)
+        [HttpGet("company/{companyId}/valid")]
+        async public Task<IActionResult> getValidCompanyPostByCompany(string companyId)
         {
-            return Ok(await _companyPostService.GetValidCompanyPostByCompany(companyID));
+            ServiceResponse<List<GetCompanyPostAdminValidDto>> response = await _companyPostService.GetValidCompanyPostByCompany(companyId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
 
         [HttpGet("student")]
         async public Task<IActionResult> getCompanyPostStudent()
         {
-            return Ok(await _companyPostService.GetCompanyPostStudent());
+            ServiceResponse<List<GetCompanyPostStudentDto>> response = await _companyPostService.GetCompanyPostStudent();
+            return Ok(response.Data);
         }
 
-        [HttpGet("user/{companyUserID}")]
-        async public Task<IActionResult> getCompanyPostByUser(string companyUserID)
+        [HttpGet("user/{companyUserId}")]
+        async public Task<IActionResult> getCompanyPostByUser(string companyUserId)
         {
-            return Ok(await _companyPostService.GetCompanyPostByUser(companyUserID));
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.GetCompanyPostByUser(companyUserId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
 
         [HttpPost("create")]
         async public Task<IActionResult> createCompanyPost(CreateCompanyPostDto companyPostDto)
         {
-            return Ok(await _companyPostService.CreateCompanyPost(companyPostDto));
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.CreateCompanyPost(companyPostDto);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         async public Task<IActionResult> updateCompanyPost(UpdateCompanyPostDto companyPostDto)
         {
-            return Ok(await _companyPostService.UpdateCompanyPost(companyPostDto));
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.UpdateCompanyPost(companyPostDto);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
 
-        [HttpDelete("delete")]
-        async public Task<IActionResult> deleteCompanyPost(string id)
+        [HttpDelete("delete/{postId}")]
+        async public Task<IActionResult> deleteCompanyPost(string postId)
         {
-            return Ok(await _companyPostService.DeleteCompanyPost(id));
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.DeleteCompanyPost(postId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
 
-        [HttpPost("archive")]
-        async public Task<IActionResult> archiveCompanyPost(string id)
+        [HttpPut("archive/{postId}")]
+        async public Task<IActionResult> archiveCompanyPost(string postId)
         {
-            return Ok(await _companyPostService.ArchiveCompanyPost(id));
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.ArchiveCompanyPost(postId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
     }
 }

@@ -5,11 +5,11 @@ namespace SOC_IR.Dtos.Announcement
     public class GetStudentAnnouncementDto
     {
         public string announceID { get; set; }
-        private string title { get; set; }
-        private string subtitle { get; set; }
-        private string description { get; set; }
-        private Boolean isImportant { get; set; }
-        private string validTill { get; set; }
-        private string lastUpdated { get; set; }
+        public string title { get; set; }
+        public string subtitle { get; set; }
+        public string description { get; set; }
+        public Boolean isImportant { get; set; }
+        public string validTill { get; set; }
+        public string lastUpdated { get; set; }
     }
 }

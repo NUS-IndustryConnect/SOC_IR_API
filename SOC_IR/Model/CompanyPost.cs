@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using SOC_IR.Dtos.CompanyPostRequest;
 using System.ComponentModel.DataAnnotations.Schema;
+using SOC_IR.Dtos.CompanyPost;
 
 namespace SOC_IR.Model
 {
@@ -57,10 +58,11 @@ namespace SOC_IR.Model
             this.isActive = isActive;
         }
 
-        public CompanyPost(ApprovalDto data)
+        public CompanyPost(string userId, ApprovalDto data)
         {
             this.companyPostId = data.request.companyPostRequestId;
             this.companyId = data.request.companyId;
+            this.companyUserId = userId;
             this.companyName = data.companyName;
             this.postTitle = data.request.postTitle;
             this.postSubTitle = data.request.postSubTitle;
@@ -81,6 +83,18 @@ namespace SOC_IR.Model
         public void companyUpdated(string companyName)
         {
             this.companyName = companyName;
+        }
+
+        public void update(UpdateCompanyPostDto update)
+        {
+            this.approvedBy = update.approvedBy;
+            this.lastUpdated = DateTime.Now.ToString();
+            this.postDescription = update.postDescription;
+            this.postTitle = update.postTitle;
+            this.postSubTitle = update.postSubTitle;
+            this.videoUrl = update.videoUrl;
+            this.validTill = update.validTill;
+            this.links = update.links;
         }
     }
 }
