@@ -20,7 +20,13 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.ArchiveCompanyPost(string postId)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            CompanyPost post = await _context.CompanyPosts.FirstAsync(async => async.companyPostId == postId);
+            CompanyPost post = await _context.CompanyPosts.FirstOrDefaultAsync(async => async.companyPostId == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Thepost you wish to archive does not exist";
+                return response;
+            }
             post.archivePost();
             _context.CompanyPosts.Update(post);
             await _context.SaveChangesAsync();
@@ -33,8 +39,8 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.CreateCompanyPost(CreateCompanyPostDto companyPostDto)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            Company companyOfPost = await _context.Companies.FirstAsync(a => a.companyId == companyPostDto.companyId);
-            CompanyUser companyUserOfPost = await _context.CompanyUsers.FirstAsync(a => a.companyUserId == companyPostDto.approvedBy);
+            Company companyOfPost = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == companyPostDto.companyId);
+            CompanyUser companyUserOfPost = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.companyUserId == companyPostDto.companyUserId);
             if (companyOfPost == null)
             {
                 response.Success = false;
@@ -50,7 +56,7 @@ namespace SOC_IR.Services.CompanyPostService
 
             
             string finalString = new IDGenerator.IDGenerator().generate();
-            string lastUpdated = new DateTime().ToString();
+            string lastUpdated = DateTime.Now.ToString();
             CompanyPost newPost = new CompanyPost(finalString, companyPostDto.companyId, companyPostDto.companyUserId, companyOfPost.companyName, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, companyPostDto.links, lastUpdated, companyPostDto.approvedBy, companyPostDto.validTill, true);
             await _context.CompanyPosts.AddAsync(newPost);
             await _context.SaveChangesAsync();
@@ -62,7 +68,13 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.DeleteCompanyPost(string postId)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            CompanyPost deletedPost = await _context.CompanyPosts.FirstAsync(async => async.companyPostId == postId);
+            CompanyPost deletedPost = await _context.CompanyPosts.FirstOrDefaultAsync(async => async.companyPostId == postId);
+            if (deletedPost == null)
+            {
+                response.Success = false;
+                response.Message = "The post you want to delete does not exist";
+                return response;
+            }
             _context.CompanyPosts.RemoveRange(deletedPost);
             await _context.SaveChangesAsync();
             List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
@@ -81,7 +93,15 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.GetCompanyPostByCompany(string id)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
+            Company comp = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == id);
+            if(comp == null)
+            {
+                response.Success = false;
+                response.Message = "The company you requested does not exist";
+                return response;
+            }
             List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Where(a=>a.companyId == id).Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            response.Data = postList;
             return response;
         }
 
@@ -95,7 +115,14 @@ namespace SOC_IR.Services.CompanyPostService
 
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.GetCompanyPostByUser(string id)
         {
+            CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.companyUserId == id);
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "The company user you requested does not exist";
+                return response;
+            }
             List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Where(a => a.companyUserId == id).Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;
             return response;
@@ -112,6 +139,13 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminValidDto>>> ICompanyPostService.GetValidCompanyPostByCompany(string id)
         {
             ServiceResponse<List<GetCompanyPostAdminValidDto>> response = new ServiceResponse<List<GetCompanyPostAdminValidDto>>();
+            Company comp = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == id);
+            if (comp == null)
+            {
+                response.Success = false;
+                response.Message = "The company you requested does not exist";
+                return response;
+            }
             List<GetCompanyPostAdminValidDto> postList = await _context.CompanyPosts.Where(a => a.isActive && a.companyId == id).Select(a => new GetCompanyPostAdminValidDto(a.companyPostId, a.companyId, a.companyUserId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill)).ToListAsync();
             response.Data = postList;
             return response;
@@ -120,9 +154,15 @@ namespace SOC_IR.Services.CompanyPostService
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.UpdateCompanyPost(UpdateCompanyPostDto companyPostDto)
         {
             ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
-            CompanyPost post = await _context.CompanyPosts.FirstAsync(a => a.companyPostId == companyPostDto.companyPostId);
-            CompanyPost updated = new CompanyPost(post.companyPostId, post.companyId, post.companyName, companyPostDto.companyUserId, companyPostDto.postTitle, companyPostDto.postSubTitle, companyPostDto.postDescription, companyPostDto.videoUrl, companyPostDto.links, new DateTime().ToString(), companyPostDto.approvedBy, companyPostDto.validTill, post.isActive);
-            _context.CompanyPosts.Update(updated);
+            CompanyPost post = await _context.CompanyPosts.FirstOrDefaultAsync(a => a.companyPostId == companyPostDto.companyPostId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "The post you want to update not exist";
+                return response;
+            }
+            post.update(companyPostDto);
+            _context.CompanyPosts.Update(post);
             await _context.SaveChangesAsync();
             List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
             response.Data = postList;

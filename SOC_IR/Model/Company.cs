@@ -30,5 +30,11 @@ namespace SOC_IR.Model
             this.companyDescription = companyDescription;
             this.isActive = isActive;
         }
+
+        public Company archive()
+        {
+            this.isActive = false;
+            return this;
+        }
     }
 }

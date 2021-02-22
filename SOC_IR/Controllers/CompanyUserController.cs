@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC_IR.Dtos.CompanyUser;
+using SOC_IR.Model;
 using SOC_IR.Services.CompanyUserService;
 using System;
 using System.Collections.Generic;
@@ -22,31 +23,64 @@ namespace SOC_IR.Controllers
         [HttpGet("users")]
         async public Task<IActionResult> getAllCompanyUsers()
         {
-            return Ok(await _companyUserService.GetAllCompanyUsers());
+            ServiceResponse<List<CompanyUserDto>> response = await _companyUserService.GetAllCompanyUsers();
+            return Ok(response.Data);
         }
 
         [HttpGet("company/{companyID}")]
-        async public Task<IActionResult> getCompanyUsersFromCompany(string companyID)
+        async public Task<IActionResult> getCompanyUsersFromCompany(string companyId)
         {
-            return Ok(await _companyUserService.GetCompanyUsersFromCompany(companyID));
+            ServiceResponse<List<CompanyUserDto>> response = await _companyUserService.GetCompanyUsersFromCompany(companyId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
 
         [HttpGet("user/{companyUserID}")]
-        async public Task<IActionResult> getCompanyUserFromId(string companyUserID)
+        async public Task<IActionResult> getCompanyUserFromId(string companyUserId)
         {
-            return Ok(await _companyUserService.GetCompanyUserFromId(companyUserID));
+            ServiceResponse<CompanyUserDto> response = await _companyUserService.GetCompanyUserFromId(companyUserId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
 
         [HttpPost("create")]
         async public Task<IActionResult> createCompanyUser(CreateCompanyUserDto companyUserDto)
         {
-            return Ok(await _companyUserService.CreateCompanyUser(companyUserDto));
+            ServiceResponse<CompanyUserDto> response = await _companyUserService.CreateCompanyUser(companyUserDto);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
         }
 
         [HttpDelete("{companyUserID}")]
-        async public Task<IActionResult> deleteCompanyUser(string companyUserID)
+        async public Task<IActionResult> deleteCompanyUser(string companyUserId)
         {
-            return Ok(await _companyUserService.DeleteCompanyUser(companyUserID));
+            ServiceResponse<List<CompanyUserDto>> response = await _companyUserService.DeleteCompanyUser(companyUserId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
         }
     }
 }
