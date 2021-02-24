@@ -16,5 +16,6 @@ namespace SOC_IR.Services.CompanyService
         public Task<ServiceResponse<List<GetCompanyAdminDto>>> UpdateCompany(string companyId, UpdateCompanyDto updatedCompanyDto);
         public Task<ServiceResponse<List<GetCompanyAdminDto>>> DeleteCompany(string id);
         public Task<ServiceResponse<List<GetCompanyAdminDto>>> ArchiveCompany(string companyId);
+        public Task<ServiceResponse<List<GetCompanyAdminDto>>> UnarchiveCompany(string companyId);
     }
 }

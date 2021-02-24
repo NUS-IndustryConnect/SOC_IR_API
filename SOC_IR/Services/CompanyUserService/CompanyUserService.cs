@@ -101,5 +101,41 @@ namespace SOC_IR.Services.CompanyUserService
             response.Data = newList;
             return response;
         }
+
+        async Task<ServiceResponse<CompanyUserDto>> ICompanyUserService.ArchiveUser(string id)
+        {
+            ServiceResponse<CompanyUserDto> response = new ServiceResponse<CompanyUserDto>();
+            CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(async => async.companyUserId == id);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "The company user you wish to archive does not exist";
+                return response;
+            }
+            user.archiveUser();
+            _context.CompanyUsers.Update(user);
+            await _context.SaveChangesAsync();
+            CompanyUserDto userDto = new CompanyUserDto(user.companyUserId, user.companyId, user.companyName, user.email, user.lastLoggedIn, user.isActive);
+            response.Data = userDto;
+            return response;
+        }
+
+        async Task<ServiceResponse<CompanyUserDto>> ICompanyUserService.UnarchiveUser(string id)
+        {
+            ServiceResponse<CompanyUserDto> response = new ServiceResponse<CompanyUserDto>();
+            CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(async => async.companyUserId == id);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "The company user you wish to archive does not exist";
+                return response;
+            }
+            user.unarchiveUser();
+            _context.CompanyUsers.Update(user);
+            await _context.SaveChangesAsync();
+            CompanyUserDto userDto = new CompanyUserDto(user.companyUserId, user.companyId, user.companyName, user.email, user.lastLoggedIn, user.isActive);
+            response.Data = userDto;
+            return response;
+        }
     }
 }

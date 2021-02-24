@@ -82,5 +82,33 @@ namespace SOC_IR.Controllers
                 return NotFound(response.Message);
             }
         }
+
+        [HttpPut("archive/{id}")]
+        async public Task<IActionResult> archiveCompanyPost(string id)
+        {
+            ServiceResponse<CompanyUserDto> response = await _companyUserService.ArchiveUser(id);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+        }
+
+        [HttpPut("unarchive/{id}")]
+        async public Task<IActionResult> unarchiveCompanyPost(string id)
+        {
+            ServiceResponse<CompanyUserDto> response = await _companyUserService.UnarchiveUser(id);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+        }
     }
 }

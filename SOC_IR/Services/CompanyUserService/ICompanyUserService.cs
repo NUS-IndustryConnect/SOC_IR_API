@@ -14,5 +14,7 @@ namespace SOC_IR.Services.CompanyUserService
         public Task<ServiceResponse<CompanyUserDto>> GetCompanyUserFromId(string companyUserID);
         public Task<ServiceResponse<CompanyUserDto>> CreateCompanyUser(CreateCompanyUserDto updatedCompanyDto);
         public Task<ServiceResponse<List<CompanyUserDto>>> DeleteCompanyUser(string companyUserID);
+        public Task<ServiceResponse<CompanyUserDto>> ArchiveUser(string id);
+        public Task<ServiceResponse<CompanyUserDto>> UnarchiveUser(string id);
     }
 }

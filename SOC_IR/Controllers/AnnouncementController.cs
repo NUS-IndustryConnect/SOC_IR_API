@@ -68,9 +68,21 @@ namespace SOC_IR.Controllers
         }
 
         [HttpPut("archive/{id}")]
-        public async Task<IActionResult> ArchiveAnnouncement(ArchiveAnnouncementDto archiveAnnouncement)
+        public async Task<IActionResult> ArchiveAnnouncement(string id)
         {
-            ServiceResponse<GetAnnouncementDto> response = await _announcementService.ArchiveAnnouncement(archiveAnnouncement);
+            ServiceResponse<GetAnnouncementDto> response = await _announcementService.ArchiveAnnouncement(id);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPut("unarchive/{id}")]
+        public async Task<IActionResult> UnarchiveAnnouncement(string id)
+        {
+            ServiceResponse<GetAnnouncementDto> response = await _announcementService.UnarchiveAnnouncement(id);
             if (response.Data == null)
             {
                 return NotFound(response);

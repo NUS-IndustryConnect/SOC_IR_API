@@ -17,23 +17,42 @@ namespace SOC_IR.Services.CompanyPostService
         {
             _context = context;
         }
-        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.ArchiveCompanyPost(string postId)
+        async Task<ServiceResponse<GetCompanyPostAdminDto>> ICompanyPostService.ArchiveCompanyPost(string postId)
         {
-            ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
+            ServiceResponse<GetCompanyPostAdminDto> response = new ServiceResponse<GetCompanyPostAdminDto>();
             CompanyPost post = await _context.CompanyPosts.FirstOrDefaultAsync(async => async.companyPostId == postId);
             if (post == null)
             {
                 response.Success = false;
-                response.Message = "Thepost you wish to archive does not exist";
+                response.Message = "The post you wish to archive does not exist";
                 return response;
             }
             post.archivePost();
             _context.CompanyPosts.Update(post);
             await _context.SaveChangesAsync();
-            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a=> new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
-            response.Data = postList;
+            GetCompanyPostAdminDto companyPostAdminDto = new GetCompanyPostAdminDto(post.companyPostId, post.companyUserId, post.companyId, post.companyName, post.postTitle, post.postSubTitle, post.postDescription, post.videoUrl, post.links, post.lastUpdated, post.approvedBy, post.validTill, post.isActive);
+            response.Data = companyPostAdminDto;
             return response;
             
+        }
+
+        async Task<ServiceResponse<GetCompanyPostAdminDto>> ICompanyPostService.UnarchiveCompanyPost(string postId)
+        {
+            ServiceResponse<GetCompanyPostAdminDto> response = new ServiceResponse<GetCompanyPostAdminDto>();
+            CompanyPost post = await _context.CompanyPosts.FirstOrDefaultAsync(async => async.companyPostId == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "The post you wish to archive does not exist";
+                return response;
+            }
+            post.unarchivePost();
+            _context.CompanyPosts.Update(post);
+            await _context.SaveChangesAsync();
+            GetCompanyPostAdminDto companyPostAdminDto = new GetCompanyPostAdminDto(post.companyPostId, post.companyUserId, post.companyId, post.companyName, post.postTitle, post.postSubTitle, post.postDescription, post.videoUrl, post.links, post.lastUpdated, post.approvedBy, post.validTill, post.isActive);
+            response.Data = companyPostAdminDto;
+            return response;
+
         }
 
         async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostService.CreateCompanyPost(CreateCompanyPostDto companyPostDto)
