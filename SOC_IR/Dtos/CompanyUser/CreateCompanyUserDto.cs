@@ -9,10 +9,5 @@ namespace SOC_IR.Dtos.CompanyUser
     {
         public string companyId { get; set; }
         public string email { get; set; }
-        public CreateCompanyUserDto(string companyId, string email)
-        {
-            this.companyId = companyId;
-            this.email = email;
-        }
     }
 }

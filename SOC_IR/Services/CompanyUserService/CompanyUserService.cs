@@ -20,8 +20,9 @@ namespace SOC_IR.Services.CompanyUserService
         {
 
             ServiceResponse<CompanyUserDto> response = new ServiceResponse<CompanyUserDto>();
-            Company company = await _context.Companies.FirstAsync(a => a.companyId == companyUserDto.companyId);
-            if (await _context.CompanyUsers.FirstAsync(a => a.email == companyUserDto.email) == null)
+            Company company = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == companyUserDto.companyId);
+            CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.email == companyUserDto.email);
+            if (user != null)
             {
                 response.Success = false;
                 response.Message = "This email already has an account";
@@ -36,7 +37,7 @@ namespace SOC_IR.Services.CompanyUserService
             }
 
             string finalString = new IDGenerator.IDGenerator().generate();
-            String lastLoggedIn = new DateTime().ToString();
+            String lastLoggedIn = DateTime.Now.ToString();
             CompanyUser newUser = new CompanyUser(finalString, company.companyName, companyUserDto.companyId, companyUserDto.email, lastLoggedIn, true);
             await _context.CompanyUsers.AddAsync(newUser);
             await _context.SaveChangesAsync();
@@ -48,7 +49,13 @@ namespace SOC_IR.Services.CompanyUserService
         async Task<ServiceResponse<List<CompanyUserDto>>> ICompanyUserService.DeleteCompanyUser(string companyUserID)
         {
             ServiceResponse<List<CompanyUserDto>> response = new ServiceResponse<List<CompanyUserDto>>();
-            CompanyUser deleted = await _context.CompanyUsers.FirstAsync(a => a.companyUserId == companyUserID);
+            CompanyUser deleted = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.companyUserId == companyUserID);
+            if(deleted == null)
+            {
+                response.Success = false;
+                response.Message = "The account you want to delete does not exist";
+                return response;
+            }
             _context.CompanyUsers.Remove(deleted);
             await _context.SaveChangesAsync();
             List<CompanyUserDto> newList = await _context.CompanyUsers.Select(a=> new CompanyUserDto(a.companyUserId, a.companyId, a.companyName, a.email, a.lastLoggedIn, a.isActive)).ToListAsync();
@@ -68,16 +75,29 @@ namespace SOC_IR.Services.CompanyUserService
         async Task<ServiceResponse<CompanyUserDto>> ICompanyUserService.GetCompanyUserFromId(string companyUserID)
         {
             ServiceResponse<CompanyUserDto> response = new ServiceResponse<CompanyUserDto>();
-            CompanyUser user = await _context.CompanyUsers.FirstAsync(a => a.companyUserId == companyUserID);
+            CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.companyUserId == companyUserID);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "The user entered does not exist";
+                return response;
+            }
             CompanyUserDto userDto = new CompanyUserDto(user.companyUserId, user.companyId, user.companyName, user.email, user.lastLoggedIn, user.isActive);
             response.Data = userDto;
             return response;
         }
 
-        async Task<ServiceResponse<List<CompanyUserDto>>> ICompanyUserService.GetCompanyUsersFromCompany(string companyID)
+        async Task<ServiceResponse<List<CompanyUserDto>>> ICompanyUserService.GetCompanyUsersFromCompany(string companyId)
         {
+            Company company = await _context.Companies.FirstOrDefaultAsync(a => a.companyId == companyId);
             ServiceResponse<List<CompanyUserDto>> response = new ServiceResponse<List<CompanyUserDto>>();
-            List<CompanyUserDto> newList = await _context.CompanyUsers.Where(a=>a.companyId == companyID).Select(a => new CompanyUserDto(a.companyUserId, a.companyId, a.companyName, a.email, a.lastLoggedIn, a.isActive)).ToListAsync();
+            if (company == null)
+            {
+                response.Success = false;
+                response.Message = "The company entered does not exist";
+                return response;
+            }
+            List<CompanyUserDto> newList = await _context.CompanyUsers.Where(a=>a.companyId == companyId).Select(a => new CompanyUserDto(a.companyUserId, a.companyId, a.companyName, a.email, a.lastLoggedIn, a.isActive)).ToListAsync();
             response.Data = newList;
             return response;
         }

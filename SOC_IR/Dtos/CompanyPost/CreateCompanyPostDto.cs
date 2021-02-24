@@ -17,18 +17,5 @@ namespace SOC_IR.Dtos.CompanyPost
         public string approvedBy { get; set; }
         public string validTill { get; set; }
 
-        public CreateCompanyPostDto(string companyId, string companyUserId, string postTitle, string postSubTitle, 
-            string postDescription, string videoUrl, string links, string approvedBy, string validTill)
-        {
-            this.companyId = companyId;
-            this.companyUserId = companyUserId;
-            this.postTitle = postTitle;
-            this.postSubTitle = postSubTitle;
-            this.postDescription = postDescription;
-            this.videoUrl = videoUrl;
-            this.links = links;
-            this.approvedBy = approvedBy;
-            this.validTill = validTill;
-        }
     }
 }
