@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj": {}
+    "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj": {
+    "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
+        "projectUniqueName": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
         "projectName": "SOC_IR",
-        "projectPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
-        "packagesPath": "C:\\Users\\pandh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\obj\\",
+        "projectPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
+        "packagesPath": "/Users/sruthi/.nuget/packages/",
+        "outputPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pandh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/sruthi/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -80,9 +78,15 @@
               "target": "Package",
               "version": "[3.1.10, )"
             },
+<<<<<<< HEAD
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
+=======
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.8.0, )"
+>>>>>>> e0549630addf05fa7566a53604702029870adbc1
             },
             "ODP.NetCore": {
               "target": "Package",
@@ -99,6 +103,10 @@
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             }
           },
           "imports": [
@@ -111,6 +119,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.8, 3.1.8]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -119,7 +133,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

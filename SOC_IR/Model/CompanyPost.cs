@@ -80,6 +80,11 @@ namespace SOC_IR.Model
             this.isActive = false;
         }
 
+        public void unarchivePost()
+        {
+            this.isActive = true;
+        }
+
         public void companyUpdated(string companyName)
         {
             this.companyName = companyName;

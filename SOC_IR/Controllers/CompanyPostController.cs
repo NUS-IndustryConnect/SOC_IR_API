@@ -129,7 +129,21 @@ namespace SOC_IR.Controllers
         [HttpPut("archive/{postId}")]
         async public Task<IActionResult> archiveCompanyPost(string postId)
         {
-            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostService.ArchiveCompanyPost(postId);
+            ServiceResponse<GetCompanyPostAdminDto> response = await _companyPostService.ArchiveCompanyPost(postId);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+        }
+
+        [HttpPut("unarchive/{postId}")]
+        async public Task<IActionResult> unarchiveCompanyPost(string postId)
+        {
+            ServiceResponse<GetCompanyPostAdminDto> response = await _companyPostService.UnarchiveCompanyPost(postId);
             if (response.Success)
             {
                 return Ok(response.Data);
