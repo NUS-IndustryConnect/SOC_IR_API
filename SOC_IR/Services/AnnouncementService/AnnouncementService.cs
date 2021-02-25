@@ -102,13 +102,37 @@ namespace SOC_IR.Services.AnnouncementService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetAnnouncementDto>> ArchiveAnnouncement(ArchiveAnnouncementDto archiveAnnouncement)
+        public async Task<ServiceResponse<GetAnnouncementDto>> ArchiveAnnouncement(string announceID)
         {
             ServiceResponse<GetAnnouncementDto> serviceResponse = new ServiceResponse<GetAnnouncementDto>();
             try
             {
-                Announcement announcement = await _context.Announcements.FirstOrDefaultAsync(a => a.announceId == archiveAnnouncement.announceID);
-                announcement.isActive = archiveAnnouncement.isActive;
+                Announcement announcement = await _context.Announcements.FirstOrDefaultAsync(a => a.announceId == announceID);
+                announcement.isActive = true;
+                announcement.lastUpdated = new DateTime().ToString();
+
+                _context.Announcements.Update(announcement);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = _mapper.Map<GetAnnouncementDto>(announcement);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetAnnouncementDto>> UnarchiveAnnouncement(string announceID)
+        {
+            ServiceResponse<GetAnnouncementDto> serviceResponse = new ServiceResponse<GetAnnouncementDto>();
+            try
+            {
+                Announcement announcement = await _context.Announcements.FirstOrDefaultAsync(a => a.announceId == announceID);
+                announcement.isActive = false;
                 announcement.lastUpdated = new DateTime().ToString();
 
                 _context.Announcements.Update(announcement);

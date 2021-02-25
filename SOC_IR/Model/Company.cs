@@ -36,5 +36,11 @@ namespace SOC_IR.Model
             this.isActive = false;
             return this;
         }
+
+        public Company unarchive()
+        {
+            this.isActive = true;
+            return this;
+        }
     }
 }

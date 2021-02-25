@@ -90,5 +90,19 @@ namespace SOC_IR.Controllers
                 return NotFound(response.Message);
             }
         }
+
+        [HttpPut("unarchive/{companyID}")]
+        async public Task<IActionResult> unarchiveCompany(string companyID)
+        {
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.UnarchiveCompany(companyID);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+        }
     }
 }

@@ -17,7 +17,8 @@ namespace SOC_IR.Services.CompanyPostService
         public Task<ServiceResponse<List<GetCompanyPostAdminValidDto>>> GetValidCompanyPostByCompany(string id);
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> CreateCompanyPost(CreateCompanyPostDto companyPostDto);
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> UpdateCompanyPost(UpdateCompanyPostDto companyPostDto);
-        public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ArchiveCompanyPost(string postId);
+        public Task<ServiceResponse<GetCompanyPostAdminDto>> ArchiveCompanyPost(string postId);
+        public Task<ServiceResponse<GetCompanyPostAdminDto>> UnarchiveCompanyPost(string postId);
         public Task<ServiceResponse<List<GetCompanyPostAdminDto>>> DeleteCompanyPost(string postId);
 
     }

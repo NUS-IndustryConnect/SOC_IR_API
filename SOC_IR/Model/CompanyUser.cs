@@ -38,5 +38,10 @@ namespace SOC_IR.Model
         {
             this.isActive = false;
         }
+
+        public void unarchiveUser()
+        {
+            this.isActive = true;
+        }
     }
 }

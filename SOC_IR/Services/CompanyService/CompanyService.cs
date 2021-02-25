@@ -142,9 +142,37 @@ namespace SOC_IR.Services.CompanyService
             companyUsers.ForEach(a => a.archiveUser());
 
             _context.CompanyPosts.UpdateRange(companyPosts);
+            _context.CompanyUsers.UpdateRange(companyUsers);
             _context.CompanyPostRequests.RemoveRange(requests);
 
             company = company.archive();
+            _context.Companies.Update(company);
+            await _context.SaveChangesAsync();
+            List<Company> comps = await _context.Companies.ToListAsync();
+            List<GetCompanyAdminDto> dataList = comps.Select(a => _mapper.Map<GetCompanyAdminDto>(a)).ToList();
+            response.Data = dataList;
+            return response;
+        }
+
+        async Task<ServiceResponse<List<GetCompanyAdminDto>>> ICompanyService.UnarchiveCompany(string companyId)
+        {
+            Company company = await _context.Companies.FirstAsync(a => a.companyId == companyId);
+            ServiceResponse<List<GetCompanyAdminDto>> response = new ServiceResponse<List<GetCompanyAdminDto>>();
+            if (company == null)
+            {
+                response.Success = false;
+                response.Message = "This company does not exist";
+                return response;
+            }
+            List<CompanyPost> companyPosts = await _context.CompanyPosts.Where(a => a.companyId == company.companyId).ToListAsync();
+            companyPosts.ForEach(a => a.unarchivePost());
+            List<CompanyUser> companyUsers = await _context.CompanyUsers.Where(a => a.companyId == company.companyId).ToListAsync();
+            companyUsers.ForEach(a => a.unarchiveUser());
+
+            _context.CompanyPosts.UpdateRange(companyPosts);
+            _context.CompanyUsers.UpdateRange(companyUsers);
+
+            company = company.unarchive();
             _context.Companies.Update(company);
             await _context.SaveChangesAsync();
             List<Company> comps = await _context.Companies.ToListAsync();
