@@ -33,11 +33,8 @@
           "Microsoft.EntityFrameworkCore.Design": "3.1.10",
           "Microsoft.EntityFrameworkCore.Relational": "3.1.10",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.10",
-<<<<<<< HEAD
-          "Newtonsoft.Json": "12.0.3",
-=======
           "Microsoft.IdentityModel.Tokens": "6.8.0",
->>>>>>> e0549630addf05fa7566a53604702029870adbc1
+          "Newtonsoft.Json": "12.0.3",
           "ODP.NetCore": "2.0.12",
           "Oracle.EntityFrameworkCore": "3.19.80",
           "Oracle.ManagedDataAccess.Core": "2.19.100",
@@ -1150,7 +1147,7 @@
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.IdentityModel.Logging": "6.8.0",
-          "System.Security.Cryptography.Cng": "4.5.0"
+          "System.Security.Cryptography.Cng": "4.7.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {
@@ -1325,7 +1322,7 @@
         "runtime": {
           "lib/netstandard2.0/Oracle.ManagedDataAccess.dll": {
             "assemblyVersion": "2.0.19.1",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "2.0.19.1"
           }
         },
         "compile": {

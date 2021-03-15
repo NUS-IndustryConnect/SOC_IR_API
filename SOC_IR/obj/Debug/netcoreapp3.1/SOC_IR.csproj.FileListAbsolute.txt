@@ -235,3 +235,7 @@ C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/obj/Debug/netco
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
 >>>>>>> e0549630addf05fa7566a53604702029870adbc1
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll

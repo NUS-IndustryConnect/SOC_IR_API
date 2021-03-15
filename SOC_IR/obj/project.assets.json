@@ -2302,11 +2302,7 @@
       "System.Security.Cryptography.Cng/4.7.0": {
         "type": "package",
         "compile": {
-<<<<<<< HEAD
-          "ref/netcoreapp3.0/_._": {}
-=======
-          "ref/netcoreapp2.1/System.Security.Cryptography.Cng.dll": {}
->>>>>>> e0549630addf05fa7566a53604702029870adbc1
+          "ref/netcoreapp3.0/System.Security.Cryptography.Cng.dll": {}
         },
         "runtime": {
           "lib/netcoreapp3.0/System.Security.Cryptography.Cng.dll": {}
@@ -8699,11 +8695,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 3.1.10",
       "Microsoft.EntityFrameworkCore.Relational >= 3.1.10",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.10",
-<<<<<<< HEAD
-      "Newtonsoft.Json >= 12.0.3",
-=======
       "Microsoft.IdentityModel.Tokens >= 6.8.0",
->>>>>>> e0549630addf05fa7566a53604702029870adbc1
+      "Newtonsoft.Json >= 12.0.3",
       "ODP.NetCore >= 2.0.12",
       "Oracle.EntityFrameworkCore >= 3.19.80",
       "Oracle.ManagedDataAccess.Core >= 2.19.100",
@@ -8712,24 +8705,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/sruthi/.nuget/packages/": {}
+    "C:\\Users\\pandh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
+      "projectUniqueName": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
       "projectName": "SOC_IR",
-      "projectPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/SOC_IR.csproj",
-      "packagesPath": "/Users/sruthi/.nuget/packages/",
-      "outputPath": "/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/",
+      "projectPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\SOC_IR.csproj",
+      "packagesPath": "C:\\Users\\pandh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/sruthi/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pandh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8788,15 +8783,13 @@
             "target": "Package",
             "version": "[3.1.10, )"
           },
-<<<<<<< HEAD
-          "Newtonsoft.Json": {
-            "target": "Package",
-            "version": "[12.0.3, )"
-=======
           "Microsoft.IdentityModel.Tokens": {
             "target": "Package",
             "version": "[6.8.0, )"
->>>>>>> e0549630addf05fa7566a53604702029870adbc1
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[12.0.3, )"
           },
           "ODP.NetCore": {
             "target": "Package",
@@ -8829,12 +8822,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.8, 3.1.8]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8843,11 +8830,17 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\pandh\\OneDrive\\Desktop\\career\\NUS DEV\\SOC_IR_API\\SOC_IR\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",
