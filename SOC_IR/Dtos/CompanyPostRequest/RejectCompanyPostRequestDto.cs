@@ -7,7 +7,7 @@ namespace SOC_IR.Dtos.CompanyPostRequest
 {
     public class RejectCompanyPostRequestDto
     {
-        public string companyPostRequestID { get; set; }
+        public string companyPostRequestId { get; set; }
         public string feedback { get; set; }
 
     }

@@ -89,7 +89,7 @@ namespace SOC_IR.Services.CompanyPostRequestService
         async Task<ServiceResponse<List<GetCompanyPostRequestDto>>> ICompanyPostRequestService.RejectCompanyPost(RejectCompanyPostRequestDto toReject)
         {
             ServiceResponse<List<GetCompanyPostRequestDto>> response = new ServiceResponse<List<GetCompanyPostRequestDto>>();
-            CompanyPostRequest request = await _context.CompanyPostRequests.FirstOrDefaultAsync(a => a.companyPostRequestId == toReject.companyPostRequestID);
+            CompanyPostRequest request = await _context.CompanyPostRequests.FirstOrDefaultAsync(a => a.companyPostRequestId == toReject.companyPostRequestId);
 
             if (request == null)
             {
