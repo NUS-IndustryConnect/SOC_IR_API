@@ -74,3 +74,10 @@ C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Release\net
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Release\netcoreapp3.1\SOC_IR.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Release\netcoreapp3.1\SOC_IR.pdb
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Release\netcoreapp3.1\SOC_IR.genruntimeconfig.cache
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\MailKit.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\MimeKit.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Release\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll

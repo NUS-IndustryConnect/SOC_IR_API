@@ -73,6 +73,7 @@
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.pdb
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.genruntimeconfig.cache
+<<<<<<< HEAD
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/appsettings.Development.json
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/appsettings.json
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/SOC_IR.exe
@@ -149,7 +150,19 @@ C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/obj/Debug/netco
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.pdb
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.genruntimeconfig.cache
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.csprojAssemblyReference.cache
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/MailKit.dll
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/MimeKit.dll
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll
+=======
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+>>>>>>> e0549630addf05fa7566a53604702029870adbc1
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
+C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/MailKit.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/MimeKit.dll
+/Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll

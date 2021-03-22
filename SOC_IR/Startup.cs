@@ -60,7 +60,9 @@ namespace SOC_IR
             app.UseRouting();
 
             app.UseCors(builder => builder
-                .AllowAnyOrigin());
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             app.UseAuthorization();
 

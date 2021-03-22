@@ -63,10 +63,10 @@ namespace SOC_IR.Controllers
             }
         }
 
-        [HttpDelete("{companyID}")]
-        async public Task<IActionResult> deleteCompany(string companyID)
+        [HttpDelete("{companyId}")]
+        async public Task<IActionResult> deleteCompany(string companyId)
         {
-            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.DeleteCompany(companyID);
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.DeleteCompany(companyId);
             if (response.Success)
             {
                 return Ok(response.Data);
@@ -77,10 +77,10 @@ namespace SOC_IR.Controllers
             }
         }
 
-        [HttpPut("archive/{companyID}")]
-        async public Task<IActionResult> archiveCompany(string companyID)
+        [HttpPut("archive/{companyId}")]
+        async public Task<IActionResult> archiveCompany(string companyId)
         {
-            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.ArchiveCompany(companyID);
+            ServiceResponse<List<GetCompanyAdminDto>> response = await _companyService.ArchiveCompany(companyId);
             if (response.Success)
             {
                 return Ok(response.Data);

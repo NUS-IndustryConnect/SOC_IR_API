@@ -58,7 +58,7 @@ namespace SOC_IR.Controllers
         [HttpPost("create")]
         async public Task<IActionResult> createCompanyUser(CreateCompanyUserDto companyUserDto)
         {
-            ServiceResponse<CompanyUserDto> response = await _companyUserService.CreateCompanyUser(companyUserDto);
+            ServiceResponse<List<CompanyUserDto>> response = await _companyUserService.CreateCompanyUser(companyUserDto);
             if (response.Success)
             {
                 return Ok(response.Data);
@@ -84,7 +84,7 @@ namespace SOC_IR.Controllers
         }
 
         [HttpPut("archive/{id}")]
-        async public Task<IActionResult> archiveCompanyPost(string id)
+        async public Task<IActionResult> archiveCompanyUser(string id)
         {
             ServiceResponse<CompanyUserDto> response = await _companyUserService.ArchiveUser(id);
             if (response.Success)
@@ -98,9 +98,23 @@ namespace SOC_IR.Controllers
         }
 
         [HttpPut("unarchive/{id}")]
-        async public Task<IActionResult> unarchiveCompanyPost(string id)
+        async public Task<IActionResult> unarchiveCompanyUser(string id)
         {
             ServiceResponse<CompanyUserDto> response = await _companyUserService.UnarchiveUser(id);
+            if (response.Success)
+            {
+                return Ok(response.Data);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+        }
+
+        [HttpPut("update")]
+        async public Task<IActionResult> updateCompanyUser(UpdateCompanyUserDto userDto)
+        {
+            ServiceResponse<List<CompanyUserDto>> response = await _companyUserService.UpdateCompanyUser(userDto);
             if (response.Success)
             {
                 return Ok(response.Data);
