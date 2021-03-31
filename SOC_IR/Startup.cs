@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Oracle.ManagedDataAccess.Client;
 using SOC_IR.Data;
 using SOC_IR.Helpers;
+using SOC_IR.Services.AccountService;
 using SOC_IR.Services.AnnouncementService;
 using SOC_IR.Services.CompanyPostRequestService;
 using SOC_IR.Services.CompanyPostService;
@@ -43,7 +44,7 @@ namespace SOC_IR
             services.AddScoped<ICompanyUserService, CompanyUserService>();
             services.AddScoped<ICompanyPostRequestService, CompanyPostRequestService>();
             services.AddScoped<ICompanyPostService, CompanyPostService>();
-
+            services.AddScoped<IAccountService, AccountService>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 

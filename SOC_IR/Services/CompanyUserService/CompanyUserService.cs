@@ -152,7 +152,7 @@ namespace SOC_IR.Services.CompanyUserService
             user.email = updateDto.email;
             _context.CompanyUsers.Update(user);
             await _context.SaveChangesAsync();
-            List<CompanyUserDto> newList = await _context.CompanyUsers.Where(a => a.companyId == companyId).Select(a => new CompanyUserDto(a.companyUserId, a.companyId, a.companyName, a.email, a.lastLoggedIn, a.isActive)).ToListAsync();
+            List<CompanyUserDto> newList = await _context.CompanyUsers.Select(a => new CompanyUserDto(a.companyUserId, a.companyId, a.companyName, a.email, a.lastLoggedIn, a.isActive)).ToListAsync();
             response.Data = newList;
             return response;
         }
