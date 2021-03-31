@@ -7,9 +7,9 @@ namespace SOC_IR.Dtos.Account
 {
     public class LoginStudentDto
     {
-        string accessToken { get; set; }
-        string error { get; set; }
-        string refreshToken { get; set; }
-        string extras { get; set; }
+        public string nusnetId { get; set; }
+        public string name{ get; set; }
+        public string webToken { get; set; }
+        public string role { get; set; }
     }
 }
