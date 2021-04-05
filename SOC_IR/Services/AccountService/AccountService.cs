@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using SOC_IR.Data;
 using SOC_IR.Dtos.Account;
 using SOC_IR.Model;
@@ -7,7 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SOC_IR.Services.AccountService
@@ -15,9 +19,12 @@ namespace SOC_IR.Services.AccountService
     public class AccountService : IAccountService
     {
         private readonly DataContext _context;
-        public AccountService(DataContext context)
+        private readonly IHttpClientFactory _clientFactory;
+        public AccountService(DataContext context, IHttpClientFactory clientFactory)
         {
             _context = context;
+            _clientFactory = clientFactory;
+
         }
         async Task<ServiceResponse<string>> IAccountService.LoginCompany(LoginCompanyEmailDto loginDto)
         {
@@ -124,10 +131,27 @@ namespace SOC_IR.Services.AccountService
             return response;
         }
 
-        Task<ServiceResponse<LoginStudentDto>> IAccountService.LoginNusUser(AccessCode code)
+        async Task<ServiceResponse<LoginStudentDto>> IAccountService.LoginNusUser(AccessCode code)
         {
+            ServiceResponse<LoginStudentDto> response = new ServiceResponse<LoginStudentDto>();
             string uri = "https://vafs.nus.edu.sg/adfs/oauth2/token";
-            throw new NotImplementedException();
+            var codejson = new StringContent(
+                JsonSerializer.Serialize(code),
+                Encoding.UTF8,
+                "application/json");
+            using var httpResponse = await new HttpClient().PostAsync(uri, codejson);
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                response.Success = false;
+                response.Message = "Something went wrong";
+                return response;
+            }
+
+            var returnData = await httpResponse.Content.ReadAsStringAsync();
+            var dataObj = JObject.Parse(returnData);
+            LoginStudentDto student = new LoginStudentDto($"{dataObj["SamAccountName"]}", $"{dataObj["displayName"]}", "12345678", $"{dataObj["Windows Domain Name"]}");
+            response.Data = student;
+            return response;
         }
     }
 }
