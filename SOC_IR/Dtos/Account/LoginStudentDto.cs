@@ -11,5 +11,13 @@ namespace SOC_IR.Dtos.Account
         public string name{ get; set; }
         public string webToken { get; set; }
         public string role { get; set; }
+
+        public LoginStudentDto(string nusnetId, string name, string webToken, string role)
+        {
+            this.nusnetId = nusnetId;
+            this.name = name;
+            this.webToken = webToken;
+            this.role = role;
+        }
     }
 }
