@@ -45,6 +45,7 @@ namespace SOC_IR
             services.AddScoped<ICompanyPostRequestService, CompanyPostRequestService>();
             services.AddScoped<ICompanyPostService, CompanyPostService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddHttpClient();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 

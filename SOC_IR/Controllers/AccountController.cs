@@ -27,9 +27,17 @@ namespace SOC_IR.Controllers
         }
 
         [HttpPost("login/soc")]
-        async public Task<IActionResult> LoginSoc()
+        async public Task<IActionResult> LoginSoc(AccessCode code)
         {
-            return Ok("");
+            ServiceResponse<LoginStudentDto> response = await _accountService.LoginNusUser(code);
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+            else
+            {
+                return Ok(response.Data);
+            }
         }
 
         
