@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SOC_IR.Data;
 using SOC_IR.Dtos.Account;
@@ -6,6 +7,7 @@ using SOC_IR.Model;
 using SOC_IR.Services.IdGenerator;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -135,23 +137,44 @@ namespace SOC_IR.Services.AccountService
         {
             ServiceResponse<LoginStudentDto> response = new ServiceResponse<LoginStudentDto>();
             string uri = "https://vafs.nus.edu.sg/adfs/oauth2/token";
-            var codejson = new StringContent(
-                JsonSerializer.Serialize(code),
-                Encoding.UTF8,
-                "application/json");
-            using var httpResponse = await new HttpClient().PostAsync(uri, codejson);
-            if (!httpResponse.IsSuccessStatusCode)
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(System.Text.Json.JsonSerializer.Serialize(code));
+            using (var httpClient = new HttpClient())
             {
-                response.Success = false;
-                response.Message = "Something went wrong";
-                return response;
-            }
+                using (var content = new FormUrlEncodedContent(dict))
+                {
+                    content.Headers.Clear();
+                    content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-            var returnData = await httpResponse.Content.ReadAsStringAsync();
-            var dataObj = JObject.Parse(returnData);
-            LoginStudentDto student = new LoginStudentDto($"{dataObj["SamAccountName"]}", $"{dataObj["displayName"]}", "12345678", $"{dataObj["Windows Domain Name"]}");
-            response.Data = student;
-            return response;
+                    HttpResponseMessage returned = await httpClient.PostAsync(uri, content);
+
+                    if (!returned.IsSuccessStatusCode)
+                    {
+                        response.Success = false;
+                        response.Message = "Something went wrong";
+                        return response;
+                    }
+
+                    var returnData = await returned.Content.ReadAsStringAsync();
+                    try
+                    { 
+                        var dataObj = JObject.Parse(returnData);
+                        var jwt = $"{dataObj["access_token"]}";
+                        var handler = new JwtSecurityTokenHandler();
+                        var token = handler.ReadJwtToken(jwt);
+                        var claims = token.Payload;
+                        LoginStudentDto student = new LoginStudentDto($"{claims["SamAccountName"]}", $"{claims["displayName"]}", "12345678", $"{claims["Windows Domain Name"]}");
+                        response.Data = student;
+                        return response;
+                    }
+                    catch (Exception e)
+                    {
+                        response.Success = false;
+                        response.Message = returnData;
+                        return response;
+                    }
+
+                }
+            }
         }
     }
 }
