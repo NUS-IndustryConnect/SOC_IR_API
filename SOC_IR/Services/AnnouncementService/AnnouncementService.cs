@@ -109,7 +109,7 @@ namespace SOC_IR.Services.AnnouncementService
             {
                 Announcement announcement = await _context.Announcements.FirstOrDefaultAsync(a => a.announceId == announceID);
                 announcement.isActive = false;
-                announcement.lastUpdated = DateTime.Now.ToString();
+                announcement.lastUpdated = new DateTime().ToString();
 
                 _context.Announcements.Update(announcement);
                 await _context.SaveChangesAsync();
@@ -133,7 +133,7 @@ namespace SOC_IR.Services.AnnouncementService
             {
                 Announcement announcement = await _context.Announcements.FirstOrDefaultAsync(a => a.announceId == announceID);
                 announcement.isActive = true;
-                announcement.lastUpdated = DateTime.Now.ToString();
+                announcement.lastUpdated = new DateTime().ToString();
 
                 _context.Announcements.Update(announcement);
                 await _context.SaveChangesAsync();
