@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SOC_IR.Data;
+using SOC_IR.Dtos.CompanyPost;
 using SOC_IR.Dtos.CompanyPostRequest;
 using SOC_IR.Model;
 using System;
@@ -17,9 +18,9 @@ namespace SOC_IR.Services.CompanyPostRequestService
             _context = context;
         }
 
-        async Task<ServiceResponse<List<GetCompanyPostRequestDto>>> ICompanyPostRequestService.ApproveCompanyPost(ApproveCompanyPostRequestDto toApprove)
+        async Task<ServiceResponse<List<GetCompanyPostAdminDto>>> ICompanyPostRequestService.ApproveCompanyPost(ApproveCompanyPostRequestDto toApprove)
         {
-            ServiceResponse<List<GetCompanyPostRequestDto>> response = new ServiceResponse<List<GetCompanyPostRequestDto>>();
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = new ServiceResponse<List<GetCompanyPostAdminDto>>();
             CompanyPostRequest req = await _context.CompanyPostRequests.FirstOrDefaultAsync(a => toApprove.companyPostRequestId == a.companyPostRequestId);
             Admin admin = await _context.Admins.FirstOrDefaultAsync(a => toApprove.approvedby == a.nusNetId);
 
@@ -35,8 +36,9 @@ namespace SOC_IR.Services.CompanyPostRequestService
             _context.CompanyPostRequests.Remove(req);
             await _context.CompanyPosts.AddAsync(post);
             await _context.SaveChangesAsync();
-            List<GetCompanyPostRequestDto> data = await _context.CompanyPostRequests.Select(a => new GetCompanyPostRequestDto(a)).ToListAsync();
-            response.Data = data;
+
+            List<GetCompanyPostAdminDto> postList = await _context.CompanyPosts.Select(a => new GetCompanyPostAdminDto(a.companyPostId, a.companyUserId, a.companyId, a.companyName, a.postTitle, a.postSubTitle, a.postDescription, a.videoUrl, a.links, a.lastUpdated, a.approvedBy, a.validTill, a.isActive)).ToListAsync();
+            response.Data = postList;
             return response;
         }
 
