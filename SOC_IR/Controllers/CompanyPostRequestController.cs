@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SOC_IR.Dtos.CompanyPost;
 using SOC_IR.Dtos.CompanyPostRequest;
 using SOC_IR.Model;
 using SOC_IR.Services.CompanyPostRequestService;
@@ -52,7 +53,7 @@ namespace SOC_IR.Controllers
         [HttpPut("approve")]
         async public Task<IActionResult> createRequest(ApproveCompanyPostRequestDto dto)
         {
-            ServiceResponse<List<GetCompanyPostRequestDto>> response = await _companyPostRequestService.ApproveCompanyPost(dto);
+            ServiceResponse<List<GetCompanyPostAdminDto>> response = await _companyPostRequestService.ApproveCompanyPost(dto);
             if (response.Success)
             {
                 return Ok(response.Data);

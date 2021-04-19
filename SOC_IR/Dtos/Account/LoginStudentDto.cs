@@ -20,4 +20,5 @@ namespace SOC_IR.Dtos.Account
             this.role = role;
         }
     }
+
 }
