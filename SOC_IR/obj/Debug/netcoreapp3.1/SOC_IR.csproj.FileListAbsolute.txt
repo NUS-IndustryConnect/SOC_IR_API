@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/appsettings.Development.json
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/appsettings.json
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/SOC_IR.deps.json
@@ -73,8 +75,6 @@
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.pdb
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/obj/Debug/netcoreapp3.1/SOC_IR.genruntimeconfig.cache
-<<<<<<< HEAD
-<<<<<<< HEAD
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/appsettings.Development.json
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/appsettings.json
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/SOC_IR.exe
@@ -154,7 +154,7 @@ C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/obj/Debug/netco
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/MailKit.dll
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/MimeKit.dll
 C:/Users/pandh/OneDrive/Desktop/career/NUS DEV/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll
-=======
+>>>>>>> fcd9acfc71b6895a7f2bf986443dd589c573f656
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\SOC_IR.exe
@@ -165,6 +165,7 @@ C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netco
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\SOC_IR.pdb
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\MailKit.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
@@ -196,16 +197,22 @@ C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netco
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Oracle.EntityFrameworkCore.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\Oracle.ManagedDataAccess.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Security.AccessControl.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
@@ -231,11 +238,7 @@ C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Debug\netco
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Debug\netcoreapp3.1\SOC_IR.pdb
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Debug\netcoreapp3.1\SOC_IR.genruntimeconfig.cache
 C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\obj\Debug\netcoreapp3.1\SOC_IR.csprojAssemblyReference.cache
-C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\MailKit.dll
-C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\MimeKit.dll
-C:\Users\pandh\OneDrive\Desktop\career\NUS DEV\SOC_IR_API\SOC_IR\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 >>>>>>> upstream/main
-=======
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
 /Users/sruthi/Desktop/SOC_IR_API/SOC_IR/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll

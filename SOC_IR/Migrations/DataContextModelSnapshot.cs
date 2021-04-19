@@ -251,6 +251,90 @@ namespace SOC_IR.Migrations
 
                     b.ToTable("IDC_ORGN_USER","OWNIDC");
                 });
+
+            modelBuilder.Entity("SOC_IR.Model.CompanyUserOtp", b =>
+                {
+                    b.Property<string>("companyUserId")
+                        .HasColumnName("USER_ID")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("logInTime")
+                        .HasColumnName("LOGIN_DTM")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("email")
+                        .HasColumnName("EMADDR_T")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("isExpired")
+                        .HasColumnName("IS_EXPIRED")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<string>("otp")
+                        .HasColumnName("OTP")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<int>("otpAttemptCount")
+                        .HasColumnName("OTP_ATTEMPT_COUNT")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.HasKey("companyUserId", "logInTime");
+
+                    b.ToTable("IDC_ORGN_USER_LOGIN","OWNIDC");
+                });
+
+            modelBuilder.Entity("SOC_IR.Model.CompanyUserToken", b =>
+                {
+                    b.Property<string>("companyUserId")
+                        .HasColumnName("USER_ID")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("logInTime")
+                        .HasColumnName("LOGIN_DTM")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("token")
+                        .HasColumnName("TOKEN")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.HasKey("companyUserId");
+
+                    b.ToTable("IDC_ORGN_USER_TOKEN","OWNIDC");
+                });
+
+            modelBuilder.Entity("SOC_IR.Model.NusUserToken", b =>
+                {
+                    b.Property<string>("nusnetId")
+                        .HasColumnName("NUSNET_ID")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("logInTime")
+                        .HasColumnName("LOGIN_DTM")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("token")
+                        .HasColumnName("TOKEN")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.HasKey("nusnetId");
+
+                    b.ToTable("IDC_NUS_USER_TOKEN","OWNIDC");
+                });
+
+            modelBuilder.Entity("SOC_IR.Model.StudentLogin", b =>
+                {
+                    b.Property<string>("nusnetId")
+                        .HasColumnName("NUSNET_ID")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("logInTime")
+                        .HasColumnName("LOGIN_DTM")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.HasKey("nusnetId", "logInTime");
+
+                    b.ToTable("IDC_STD_USER_LOGIN","OWNIDC");
+                });
 #pragma warning restore 612, 618
         }
     }

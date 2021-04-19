@@ -26,7 +26,7 @@ namespace SOC_IR.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseOracle(@"User Id=ownidc; Password=helloworld; Data Source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = sidt.comp.nus.edu.sg)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = sidt.comp.nus.edu.sg)))");
+            optionsBuilder.UseOracle(@"User Id=prjidc; Password=industr4connec4; Data Source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = sidt.comp.nus.edu.sg)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = sidt.comp.nus.edu.sg)))");
         }
     }
 

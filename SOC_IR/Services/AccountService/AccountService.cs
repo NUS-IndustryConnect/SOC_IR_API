@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SOC_IR.Data;
 using SOC_IR.Dtos.Account;
@@ -6,6 +7,7 @@ using SOC_IR.Model;
 using SOC_IR.Services.IdGenerator;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -30,14 +32,14 @@ namespace SOC_IR.Services.AccountService
         {
             CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.email == loginDto.email);
             ServiceResponse<string> response = new ServiceResponse<string>();
-
+            
             if (user == null)
             {
                 response.Success = false;
                 response.Message = "The user does not exist";
                 return response;
             }
-
+            
             CompanyUserOtp otp = await _context.CompanyUserOtps.FirstOrDefaultAsync(a => a.email == loginDto.email);
             string otpCode = new OtpGenerator().generate();
             if (otp == null)
@@ -80,26 +82,28 @@ namespace SOC_IR.Services.AccountService
                     }
                 }
             }
-        
-
-            var smtpClient = new SmtpClient("mailgw0.comp.nus.edu.sg")
+            
+            var smtpClient = new SmtpClient("mailauth.comp.nus.edu.sg")
             {
-                Port = 465,
+                Port = 587,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential("iconnect@comp.nus.edu.sg", "c0nn3ct+c0mpan4"),
+                Credentials = new NetworkCredential("iconnect", "c0nn3ct+c0mpan4"),
                 EnableSsl = true,
                 Timeout = 20000
             };
 
-            string message = "Your One Time Password is: " + otp.otp;
+            await _context.SaveChangesAsync();
+            string message = "Your One Time Password is: " + otpCode;
             smtpClient.Send("iconnect@comp.nus.edu.sg", loginDto.email, "One Time Password", message);
             response.Data = "You have been sent an email with your otp";
             return response;
+            
         }
 
         async Task<ServiceResponse<CompanyUserSuccessDto>> IAccountService.LoginCompanyOtp(LoginCompanyOtpDto loginDto)
         {
             ServiceResponse<CompanyUserSuccessDto> response = new ServiceResponse<CompanyUserSuccessDto>();
+       
             CompanyUserOtp otp = await _context.CompanyUserOtps.FirstOrDefaultAsync(a => a.email == loginDto.email);
 
             if (otp == null)
@@ -125,9 +129,9 @@ namespace SOC_IR.Services.AccountService
                 otp.otpAttemptCount++;
                 _context.CompanyUserOtps.Update(otp);
                 response.Success = false;
-                response.Message = "Error wrong OTP entered";
-            }
-
+                response.Message = "Error wrong OTP entered" +otp.otp;
+            } 
+        
             return response;
         }
 
@@ -135,23 +139,45 @@ namespace SOC_IR.Services.AccountService
         {
             ServiceResponse<LoginStudentDto> response = new ServiceResponse<LoginStudentDto>();
             string uri = "https://vafs.nus.edu.sg/adfs/oauth2/token";
-            var codejson = new StringContent(
-                JsonSerializer.Serialize(code),
-                Encoding.UTF8,
-                "application/json");
-            using var httpResponse = await new HttpClient().PostAsync(uri, codejson);
-            if (!httpResponse.IsSuccessStatusCode)
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(System.Text.Json.JsonSerializer.Serialize(code));
+            using (var httpClient = new HttpClient())
             {
-                response.Success = false;
-                response.Message = "Something went wrong";
-                return response;
-            }
+                using (var content = new FormUrlEncodedContent(dict))
+                {
+                    content.Headers.Clear();
+                    content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-            var returnData = await httpResponse.Content.ReadAsStringAsync();
-            var dataObj = JObject.Parse(returnData);
-            LoginStudentDto student = new LoginStudentDto($"{dataObj["SamAccountName"]}", $"{dataObj["displayName"]}", "12345678", $"{dataObj["Windows Domain Name"]}");
-            response.Data = student;
-            return response;
+                    HttpResponseMessage returned = await httpClient.PostAsync(uri, content);
+
+                    if (!returned.IsSuccessStatusCode)
+                    {
+                        var error = returned.Headers.ToString();
+                        response.Success = false;
+                        response.Message = error;
+                        return response;
+                    }
+
+                    var returnData = await returned.Content.ReadAsStringAsync();
+                    try
+                    { 
+                        var dataObj = JObject.Parse(returnData);
+                        var jwt = $"{dataObj["access_token"]}";
+                        var handler = new JwtSecurityTokenHandler();
+                        var token = handler.ReadJwtToken(jwt);
+                        var claims = token.Payload;
+                        LoginStudentDto student = new LoginStudentDto($"{claims["SamAccountName"]}", $"{claims["displayName"]}", "12345678", $"{claims["Windows Domain Name"]}");
+                        response.Data = student;
+                        return response;
+                    }
+                    catch (Exception e)
+                    {
+                        response.Success = false;
+                        response.Message = returnData;
+                        return response;
+                    }
+
+                }
+            }
         }
     }
 }

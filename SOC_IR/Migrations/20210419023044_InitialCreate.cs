@@ -44,6 +44,20 @@ namespace SOC_IR.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IDC_NUS_USER_TOKEN",
+                schema: "OWNIDC",
+                columns: table => new
+                {
+                    NUSNET_ID = table.Column<string>(nullable: false),
+                    LOGIN_DTM = table.Column<string>(nullable: true),
+                    TOKEN = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IDC_NUS_USER_TOKEN", x => x.NUSNET_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IDC_ORGN",
                 schema: "OWNIDC",
                 columns: table => new
@@ -74,6 +88,37 @@ namespace SOC_IR.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IDC_ORGN_USER", x => x.USER_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IDC_ORGN_USER_LOGIN",
+                schema: "OWNIDC",
+                columns: table => new
+                {
+                    USER_ID = table.Column<string>(nullable: false),
+                    LOGIN_DTM = table.Column<string>(nullable: false),
+                    EMADDR_T = table.Column<string>(nullable: true),
+                    OTP = table.Column<string>(nullable: true),
+                    OTP_ATTEMPT_COUNT = table.Column<int>(nullable: false),
+                    IS_EXPIRED = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IDC_ORGN_USER_LOGIN", x => new { x.USER_ID, x.LOGIN_DTM });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IDC_ORGN_USER_TOKEN",
+                schema: "OWNIDC",
+                columns: table => new
+                {
+                    USER_ID = table.Column<string>(nullable: false),
+                    LOGIN_DTM = table.Column<string>(nullable: true),
+                    TOKEN = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IDC_ORGN_USER_TOKEN", x => x.USER_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,6 +167,19 @@ namespace SOC_IR.Migrations
                 {
                     table.PrimaryKey("PK_IDC_POST_REQ", x => x.POST_REQ_ID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "IDC_STD_USER_LOGIN",
+                schema: "OWNIDC",
+                columns: table => new
+                {
+                    NUSNET_ID = table.Column<string>(nullable: false),
+                    LOGIN_DTM = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IDC_STD_USER_LOGIN", x => new { x.NUSNET_ID, x.LOGIN_DTM });
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -135,6 +193,10 @@ namespace SOC_IR.Migrations
                 schema: "OWNIDC");
 
             migrationBuilder.DropTable(
+                name: "IDC_NUS_USER_TOKEN",
+                schema: "OWNIDC");
+
+            migrationBuilder.DropTable(
                 name: "IDC_ORGN",
                 schema: "OWNIDC");
 
@@ -143,11 +205,23 @@ namespace SOC_IR.Migrations
                 schema: "OWNIDC");
 
             migrationBuilder.DropTable(
+                name: "IDC_ORGN_USER_LOGIN",
+                schema: "OWNIDC");
+
+            migrationBuilder.DropTable(
+                name: "IDC_ORGN_USER_TOKEN",
+                schema: "OWNIDC");
+
+            migrationBuilder.DropTable(
                 name: "IDC_POST",
                 schema: "OWNIDC");
 
             migrationBuilder.DropTable(
                 name: "IDC_POST_REQ",
+                schema: "OWNIDC");
+
+            migrationBuilder.DropTable(
+                name: "IDC_STD_USER_LOGIN",
                 schema: "OWNIDC");
         }
     }
