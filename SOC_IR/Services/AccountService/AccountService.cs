@@ -32,14 +32,14 @@ namespace SOC_IR.Services.AccountService
         {
             CompanyUser user = await _context.CompanyUsers.FirstOrDefaultAsync(a => a.email == loginDto.email);
             ServiceResponse<string> response = new ServiceResponse<string>();
-
+            
             if (user == null)
             {
                 response.Success = false;
                 response.Message = "The user does not exist";
                 return response;
             }
-
+            
             CompanyUserOtp otp = await _context.CompanyUserOtps.FirstOrDefaultAsync(a => a.email == loginDto.email);
             string otpCode = new OtpGenerator().generate();
             if (otp == null)
@@ -82,26 +82,28 @@ namespace SOC_IR.Services.AccountService
                     }
                 }
             }
-        
-
-            var smtpClient = new SmtpClient("mailgw0.comp.nus.edu.sg")
+            
+            var smtpClient = new SmtpClient("mailauth.comp.nus.edu.sg")
             {
-                Port = 465,
+                Port = 587,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential("iconnect@comp.nus.edu.sg", "c0nn3ct+c0mpan4"),
+                Credentials = new NetworkCredential("iconnect", "c0nn3ct+c0mpan4"),
                 EnableSsl = true,
                 Timeout = 20000
             };
 
-            string message = "Your One Time Password is: " + otp.otp;
+            await _context.SaveChangesAsync();
+            string message = "Your One Time Password is: " + otpCode;
             smtpClient.Send("iconnect@comp.nus.edu.sg", loginDto.email, "One Time Password", message);
             response.Data = "You have been sent an email with your otp";
             return response;
+            
         }
 
         async Task<ServiceResponse<CompanyUserSuccessDto>> IAccountService.LoginCompanyOtp(LoginCompanyOtpDto loginDto)
         {
             ServiceResponse<CompanyUserSuccessDto> response = new ServiceResponse<CompanyUserSuccessDto>();
+       
             CompanyUserOtp otp = await _context.CompanyUserOtps.FirstOrDefaultAsync(a => a.email == loginDto.email);
 
             if (otp == null)
@@ -127,9 +129,9 @@ namespace SOC_IR.Services.AccountService
                 otp.otpAttemptCount++;
                 _context.CompanyUserOtps.Update(otp);
                 response.Success = false;
-                response.Message = "Error wrong OTP entered";
-            }
-
+                response.Message = "Error wrong OTP entered" +otp.otp;
+            } 
+        
             return response;
         }
 
@@ -149,8 +151,9 @@ namespace SOC_IR.Services.AccountService
 
                     if (!returned.IsSuccessStatusCode)
                     {
+                        var error = returned.Headers.ToString();
                         response.Success = false;
-                        response.Message = "Something went wrong";
+                        response.Message = error;
                         return response;
                     }
 
